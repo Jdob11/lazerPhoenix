@@ -1,0 +1,3 @@
+- As a user, I want my order history saved, because I want to reference it later
+- As a user, I want to be able to set my phone number and address, because I don't want to input them every time
+- As an owner, I want to be able to post and edit menu items, because menus are always changing
