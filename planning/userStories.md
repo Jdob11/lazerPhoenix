@@ -10,4 +10,4 @@ As a user, I want to have a place for extra instructions, because I may have ins
 ## Owner
 - As an owner, I want to be able to post and edit menu items, because menus are always changing.
 - As an owner I want to be notified via SMS when a user orders food because I do not want to miss an order.
-- As an owner, I want to notify the client on how long the food will take to prepare because I want them to know how long before they are eating. 
+- As an owner, I want to notify the client on how long the food will take to prepare because I want them to know how long before they are eating.
