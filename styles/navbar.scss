@@ -1,0 +1,30 @@
+.navbar{
+  position: absolute;
+  display: inline;
+  top: 0;
+  width: 100%;
+  height: 8%;
+  background: tan;
+  font-family: calibri;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+li{
+  list-style: none;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+}
+
+a:link { text-decoration: none; }
