@@ -6,5 +6,5 @@ CREATE TABLE menu_items (
     description TEXT,
     price SMALLINT,
     category VARCHAR(255),
-    image_url VARCHAR(255),
+    image_url VARCHAR(255)
 );
