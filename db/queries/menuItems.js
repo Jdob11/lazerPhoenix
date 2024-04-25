@@ -21,7 +21,7 @@ const addMenuItem = (menu_item) => {
   const queryStr =
   `INSERT INTO menu_items (name, description, price, category, image_url)
   VALUES ($1, $2, $3, $4, $5)
-  RETURNING *
+  RETURNING *;
   `;
 
   const queryParams = [menu_item.name, menu_item.description,
@@ -38,8 +38,48 @@ const addMenuItem = (menu_item) => {
   });
 };
 
+//remove menu item
+const removeMenuItem = (menuItemId) => {
+  const queryStr = `
+  DELETE FROM menu_items
+  WHERE id = $1
+  RETURNING *;
+  `;
+
+  const queryParams = [menuItemId]
+
+  return db.query(queryStr, queryPrams)
+  .then((results) => {
+    return results.rows[0];
+  })
+  .catch((err) => {
+    console.log("error: ", err);
+    throw err;
+  });
+};
+
+//fetch menu item by id
+const menuItemId = (menuItemId) => {
+  const queryStr = `
+  SELECT * FROM menu_items
+  WHERE id = $1;
+  `;
+
+  const queryParams = [menuItemId];
+
+  return db.query(queryStr, queryParams)
+  .then((results) => {
+    return results.rows[0];
+  })
+  .catch((err) => {
+    console.log("error:", err);
+    throw err;
+  });
+};
+
 
 module.exports = {
   fetchAllMenuItems,
   addMenuItem,
+  removeMenuItem
  };
