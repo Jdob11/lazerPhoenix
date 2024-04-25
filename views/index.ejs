@@ -74,13 +74,13 @@
       <p class="menuItemDescription">beautiful pizza</p>
       <button type="button" class="orderButton">Order</button>
     </div> -->
-    <form class="menuItem">
+    <form class="menuItem" action="/users/addMenuItem" method="POST">
       <input type="text" id="itemImage" name="itemImage" placeholder="Image URL" />
       <div class="inputRow">
           <input type="text" id="itemName" name="itemName" placeholder="Name" />
           <input type="text" id="itemPrice" name="itemPrice" placeholder="Price" />
       </div>
-      <input type="text" id="itemDescription" name="itemDescription" placeholder="Description" />
+      <textarea id="itemDescription" name="itemDescription" placeholder="Description"></textarea>
       <button type="submit" class="addToMenuButton">Add to Menu</button>
     </form>
   </div>
