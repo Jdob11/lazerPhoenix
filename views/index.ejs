@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Home Page</title>
+  <title>Lazer Phoenix</title>
 
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -12,13 +12,80 @@
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/navbar.css" />
+  <link rel="stylesheet" href="/styles/banner.css" />
+  <link rel="stylesheet" href="/styles/menuItems.css" />
+  <link rel="stylesheet" href="/styles/cartButton.css" />
+  <link rel="stylesheet" href="/styles/menuItemInput.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Source Sans 3 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
-</head>
+  </head>
 
 <body>
-  <h1>Have fun! 🥔</h1>
+
+  <div class="navbar">
+    <div class="nav">
+      <div class="logo"> Lazer Phoenix</div>
+      <ul>
+          <li><a href = "#">Menu</a></li>
+          <li><a href = "#">Contact Us</a></li>
+          <li><a href = "#">Preferences</a></li>
+          <li><a href = "#">Log In</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class = "banner">
+    <img src="/img/moltress.jpg" alt="image of a phoenix">
+  </div>
+
+  <div id="menuItems" class="menuItems">
+    <div class="menuItem">
+      <img src="/img/beautifulTaco.jpg" alt="image of a taco">
+      <div class="itemInfo">
+        <h3 class="menuItemName">taco</h3>
+        <h3 class="menuItemPrice">$XX.xx</h3>
+      </div>
+      <p class="menuItemDescription">Beautiful Taco</p>
+      <button type="button" class="orderButton">Order</button>
+    </div>
+    <div class="menuItem">
+      <img src="/img/hotDog.jpg" alt="image of a hotdog">
+      <div class="itemInfo">
+        <h3 class="menuItemName">hotdog</h3>
+        <h3 class="menuItemPrice">$XX.xx</h3>
+      </div>
+      <p class="menuItemDescription">Beautiful hotdog</p>
+      <button type="button" class="orderButton">Order</button>
+    </div>
+    <!-- <div class="menuItem">
+      <img src="/img/pizza.jpg" alt="image of pizza">
+      <div class="itemInfo">
+        <h3 class="menuItemName">pizza</h3>
+        <h3 class="menuItemPrice">$XX.xx</h3>
+      </div>
+      <p class="menuItemDescription">beautiful pizza</p>
+      <button type="button" class="orderButton">Order</button>
+    </div> -->
+    <form class="menuItem">
+      <input type="text" id="itemImage" name="itemImage" placeholder="Image URL" />
+      <div class="inputRow">
+          <input type="text" id="itemName" name="itemName" placeholder="Name" />
+          <input type="text" id="itemPrice" name="itemPrice" placeholder="Price" />
+      </div>
+      <input type="text" id="itemDescription" name="itemDescription" placeholder="Description" />
+      <button type="submit" class="addToMenuButton">Add to Menu</button>
+    </form>
+  </div>
+  <button class="shopping-cart-button"><i class="fa-solid fa-cart-shopping"></i></button>
+
 </body>
 
 </html>
