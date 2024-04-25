@@ -1,12 +1,4 @@
-const { Client } = require('pg');
 const db = require('../connection');
-
-const client = new Client({
-  user: "labber",
-  password: "labber",
-  host: "localhost",
-  database: "laserphoenix"
-})
 
 // get all menu items
 const fetchAllMenuItems = () => {
@@ -81,5 +73,6 @@ const menuItemId = (menuItemId) => {
 module.exports = {
   fetchAllMenuItems,
   addMenuItem,
-  removeMenuItem
+  removeMenuItem,
+  menuItemId
  };
