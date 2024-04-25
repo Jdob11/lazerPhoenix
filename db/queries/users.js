@@ -8,6 +8,7 @@ const client = new Client({
   database: "laserphoenix"
 })
 
+// get all users
 const getUsers = () => {
   return db.query('SELECT * FROM users;')
     .then(data => {
@@ -15,4 +16,18 @@ const getUsers = () => {
     });
 };
 
-module.exports = { getUsers };
+
+
+
+
+
+
+
+
+
+
+
+
+module.exports = {
+  getUsers,
+ };
