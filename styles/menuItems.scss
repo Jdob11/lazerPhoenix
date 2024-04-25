@@ -1,3 +1,5 @@
+@use 'vars' as *;
+
 .menuItems{
   display: flex;
   justify-content: space-between;
@@ -9,14 +11,14 @@
 .itemOne, .itemTwo, .itemThree {
   width: 250px;
   margin: 10px;
-  background-color: antiquewhite;
+  background-color: $menu-item-background-color;
   border-width: 10px;
   border-style: solid;
-  border-color: antiquewhite;
+  border-color: $menu-item-background-color;
   border-radius: 10px;
 }
 
-img{
+.menuItems img {
   width: 230px;
   height: 215px
 }
@@ -25,4 +27,19 @@ img{
 display: flex;
 justify-content: space-between;
 }
+
+.shopping-cart-button {
+  font-size: 40px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background-color: $cart-button-background-color;
+  color: $cart-button-cart-color;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+}
+
 
