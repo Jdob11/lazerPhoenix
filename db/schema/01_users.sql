@@ -1,7 +1,6 @@
 CREATE TABLE users (
-    user_id SERIAL PRIMARY KEY,
-    id INTEGER REFERENCES users_data(id),
-    phone VARCHAR(10),
+    id SERIAL PRIMARY KEY NOT NULL,
+    phone VARCHAR(14),
     email VARCHAR(255),
     password VARCHAR(255),
     is_owner BOOLEAN DEFAULT false
