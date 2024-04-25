@@ -1,0 +1,15 @@
+@use 'vars' as *;
+
+.shopping-cart-button {
+  font-size: 40px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background-color: $cart-button-background-color;
+  color: $cart-button-cart-color;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+}
