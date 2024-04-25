@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE menu_items (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
