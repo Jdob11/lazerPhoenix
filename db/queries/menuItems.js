@@ -9,26 +9,28 @@ const fetchAllMenuItems = () => {
 };
 
 // add a new menu item
-const addMenuItem = (menu_item) => {
-  const queryStr =
-  `INSERT INTO menu_items (name, description, price, category, image_url)
-  VALUES ($1, $2, $3, $4, $5)
-  RETURNING *;
+const addMenuItem = (req, res) => {
+  const { itemImage, itemName, itemPrice, itemDescription } = req.body;
+
+  const queryStr = `
+    INSERT INTO menu_items (name, description, price, category, image_url)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *;
   `;
 
-  const queryParams = [menu_item.name, menu_item.description,
-                       menu_item.price, menu_item.category,
-                       menu_item.image_url];
+  const queryParams = [itemName, itemDescription, itemPrice, null, itemImage];
 
-  return db.query(queryStr, queryParams)
-  .then((results) =>{
-    return results.rows[0];
-  })
-  .catch((err) => {
-    console.log("error: ", err)
-    throw err;
+  db.query(queryStr, queryParams, (err, result) => {
+    if (err) {
+      console.error('Error executing query', err);
+      res.status(500).send('Error adding menu item');
+    } else {
+      console.log('Menu item added successfully:', result.rows[0]);
+      res.status(200).send('Menu item added successfully');
+    }
   });
-};
+}
+
 
 //remove menu item
 const removeMenuItem = (menuItemId) => {
@@ -40,7 +42,7 @@ const removeMenuItem = (menuItemId) => {
 
   const queryParams = [menuItemId]
 
-  return db.query(queryStr, queryPrams)
+  return db.query(queryStr, queryParams)
   .then((results) => {
     return results.rows[0];
   })
