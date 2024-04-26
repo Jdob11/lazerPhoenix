@@ -12,15 +12,15 @@ const fetchAllMenuItems = () => {
 const addMenuItem = (req, res) => {
   const { itemImage, itemName, itemPrice, itemDescription } = req.body;
 
-  const queryText = `
+  const queryStr = `
     INSERT INTO menu_items (name, description, price, category, image_url)
     VALUES ($1, $2, $3, $4, $5)
     RETURNING *;
   `;
 
-  const values = [itemName, itemDescription, itemPrice, null, itemImage];
+  const queryParams = [itemName, itemDescription, itemPrice, null, itemImage];
 
-  db.query(queryText, values, (err, result) => {
+  db.query(queryStr, queryParams, (err, result) => {
     if (err) {
       console.error('Error executing query', err);
       res.status(500).send('Error adding menu item');
@@ -42,7 +42,7 @@ const removeMenuItem = (menuItemId) => {
 
   const queryParams = [menuItemId]
 
-  return db.query(queryStr, queryPrams)
+  return db.query(queryStr, queryParams)
   .then((results) => {
     return results.rows[0];
   })
