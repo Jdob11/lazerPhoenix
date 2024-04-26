@@ -31,7 +31,6 @@ const addMenuItem = (req, res) => {
   });
 }
 
-
 //remove menu item
 const removeMenuItem = (menuItemId) => {
   const queryStr = `
