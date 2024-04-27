@@ -8,7 +8,7 @@
 const express = require('express');
 const db = require('../db/connection');
 const router  = express.Router();
-const { addMenuItem } = require('../db/queries/menuItems')
+const { addMenuItem, editMenuItem } = require('../db/queries/menuItems')
 const { fetchAllMenuItems } = require('../db/queries/menuItems');
 
 router.get('/', (req, res) => {
@@ -26,6 +26,8 @@ router.get('/menuItems', async (req, res) => {
 
 // Route to handle form submission and add menu item to the database
 router.post('/addMenuItem', addMenuItem);
+
+router.post('/editMenuItem', editMenuItem);
 
 module.exports = router;
 
