@@ -17,14 +17,13 @@ router.get('/', (req, res) => {
 
 router.get('/menuItems', async (req, res) => {
   try {
-    const menuItems = await fetchAllMenuItems(); // Fetch menu items from the database
-    res.json(menuItems); // Respond with JSON data containing menu items
+    const menuItems = await fetchAllMenuItems();
+    res.json(menuItems);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching menu items' });
   }
 });
 
-// Route to handle form submission and add menu item to the database
 router.post('/addMenuItem', addMenuItem);
 
 router.post('/editMenuItem', editMenuItem);
