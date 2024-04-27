@@ -5,3 +5,4 @@ CREATE TABLE orders (
     total_cost SMALLINT,
     completed_at TIMESTAMP
 );
+

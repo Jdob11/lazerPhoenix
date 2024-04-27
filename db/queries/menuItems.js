@@ -31,7 +31,6 @@ const addMenuItem = (req, res) => {
   });
 }
 
-
 //remove menu item
 const removeMenuItem = (menuItemId) => {
   const queryStr = `
@@ -71,10 +70,35 @@ const menuItemId = (menuItemId) => {
   });
 };
 
+//update existing menu item
+const updateMenuItem = (req, res) => {
+  const { itemImage, itemName, itemPrice, itemDescription } = req.body;
+
+  const queryStr = `
+  UPDATE menu_items
+  SET name = $1, description = $2, price = $3, image_url = $4
+  WHERE id = $5
+  RETURNING *;
+`;
+
+  const queryParams = [itemName, itemDescription, itemPrice, null, itemImage];
+
+  return db.query(queryStr, queryParams)
+  .then((results) => {
+    return results.rows[0];
+  })
+  .catch((err) => {
+    console.log("error:", err);
+    throw err;
+  });
+};
+
+
 
 module.exports = {
   fetchAllMenuItems,
   addMenuItem,
   removeMenuItem,
-  menuItemId
+  menuItemId,
+  updateMenuItem
  };
