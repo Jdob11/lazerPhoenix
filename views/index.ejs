@@ -26,6 +26,8 @@
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
+  <script defer src="/scripts/users.js"></script>
+  <script defer src="/scripts/helpers.js"></script>
   </head>
 
 <body>
@@ -46,8 +48,8 @@
     <img src="/img/moltress.jpg" alt="image of a phoenix">
   </div>
 
-  <div id="menuItems" class="menuItems">
-    <div class="menuItem">
+  <div id="menuContainer" class="menuItems">
+    <!-- <div class="menuItem">
       <img src="/img/beautifulTaco.jpg" alt="image of a taco">
       <div class="itemInfo">
         <h3 class="menuItemName">taco</h3>
@@ -65,7 +67,7 @@
       <p class="menuItemDescription">Beautiful hotdog</p>
       <button type="button" class="orderButton">Order</button>
     </div>
-    <!-- <div class="menuItem">
+      <div class="menuItem">
       <img src="/img/pizza.jpg" alt="image of pizza">
       <div class="itemInfo">
         <h3 class="menuItemName">pizza</h3>
@@ -73,7 +75,7 @@
       </div>
       <p class="menuItemDescription">beautiful pizza</p>
       <button type="button" class="orderButton">Order</button>
-    </div> -->
+    </div>
     <form class="menuItem" action="/users/addMenuItem" method="POST">
       <input type="text" id="itemImage" name="itemImage" placeholder="Image URL" />
       <div class="inputRow">
@@ -82,7 +84,7 @@
       </div>
       <textarea id="itemDescription" name="itemDescription" placeholder="Description"></textarea>
       <button type="submit" class="addToMenuButton">Add to Menu</button>
-    </form>
+    </form> -->
   </div>
   <button class="shopping-cart-button"><i class="fa-solid fa-cart-shopping"></i></button>
 

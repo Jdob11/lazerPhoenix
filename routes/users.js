@@ -9,9 +9,19 @@ const express = require('express');
 const db = require('../db/connection');
 const router  = express.Router();
 const { addMenuItem } = require('../db/queries/menuItems')
+const { fetchAllMenuItems } = require('../db/queries/menuItems');
 
 router.get('/', (req, res) => {
   res.render('users');
+});
+
+router.get('/menuItems', async (req, res) => {
+  try {
+    const menuItems = await fetchAllMenuItems(); // Fetch menu items from the database
+    res.json(menuItems); // Respond with JSON data containing menu items
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching menu items' });
+  }
 });
 
 // Route to handle form submission and add menu item to the database
