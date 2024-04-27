@@ -31,6 +31,34 @@ const addMenuItem = (req, res) => {
   });
 }
 
+const editMenuItem = (req, res) => {
+  const { itemId, itemImage, itemName, itemPrice, itemDescription } = req.body;
+
+  const queryStr = `
+    UPDATE menu_items
+    SET name = $1, description = $2, price = $3, image_url = $4
+    WHERE id = $5
+    RETURNING *;
+  `;
+
+  const queryParams = [itemName, itemDescription, itemPrice, itemImage, itemId];
+
+  db.query(queryStr, queryParams, (err, result) => {
+    if (err) {
+      console.error('Error executing query', err);
+      res.status(500).send('Error editing menu item');
+    } else {
+      if (result.rows.length === 0) {
+        res.status(404).send('Menu item not found');
+      } else {
+        console.log('Menu item edited successfully:', result.rows[0]);
+        res.status(200).send('Menu item edited successfully');
+      }
+    }
+  });
+}
+
+
 //remove menu item
 const removeMenuItem = (menuItemId) => {
   const queryStr = `
@@ -70,35 +98,11 @@ const menuItemId = (menuItemId) => {
   });
 };
 
-//update existing menu item
-const updateMenuItem = (req, res) => {
-  const { itemImage, itemName, itemPrice, itemDescription } = req.body;
-
-  const queryStr = `
-  UPDATE menu_items
-  SET name = $1, description = $2, price = $3, image_url = $4
-  WHERE id = $5
-  RETURNING *;
-`;
-
-  const queryParams = [itemName, itemDescription, itemPrice, null, itemImage];
-
-  return db.query(queryStr, queryParams)
-  .then((results) => {
-    return results.rows[0];
-  })
-  .catch((err) => {
-    console.log("error:", err);
-    throw err;
-  });
-};
-
-
 
 module.exports = {
   fetchAllMenuItems,
   addMenuItem,
   removeMenuItem,
   menuItemId,
-  updateMenuItem
+  editMenuItem
  };
