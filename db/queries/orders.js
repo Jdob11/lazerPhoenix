@@ -1,5 +1,6 @@
 const db = require('../connection');
 
+//fetch all orders
 const fetchAllOrders = () => {
   return db.query('SELECT * FROM orders;')
     .then(data => {
