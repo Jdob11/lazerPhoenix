@@ -35,5 +35,5 @@ INSERT INTO menu_items (name, description, price, category, image_url) VALUES
   'Japanese style seafood fried rice.',
   1500,
   'Entrees',
-  'https://tokyonoodleshop.com/med/Seafood-Fried-Rice.jpg'),
+  'https://tokyonoodleshop.com/med/Seafood-Fried-Rice.jpg')
   ;
