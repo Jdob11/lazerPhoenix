@@ -15,8 +15,23 @@ $(() => {
     });
   });
 
-  fetchMenuItems(createMenuItemElement); // Generate user menu page
-  // fetchMenuItems(createMenuItemForm); // Generate Owner menu page
+  const userId = window.location.pathname.split('/').pop();
+
+  $.ajax({
+    method: 'GET',
+    url: `/users/${userId}`
+  })
+  .done((user) => {
+    console.log(user);
+    if (!user.is_owner) {
+    fetchMenuItems(createMenuItemElement); // Generate user menu page
+    } else {
+    fetchMenuItems(createMenuItemForm); // Generate Owner menu page
+    };
+  })
+  .fail((error) => {
+    console.error('Error fetching user:', error);
+  });
 
   $(document).on('submit', '.menuItem', editMenuButton);
 });

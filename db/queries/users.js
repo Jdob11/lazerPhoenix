@@ -9,6 +9,7 @@ const getUsers = () => {
 };
 
 //fetch menu item by id
+
 const getUserById = (userId) => {
   const queryStr = `
   SELECT * FROM users
@@ -26,7 +27,8 @@ const getUserById = (userId) => {
     throw err;
   });
 };
+
 module.exports = {
   getUsers,
   getUserById
- };
+  };
