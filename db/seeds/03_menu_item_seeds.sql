@@ -1,16 +1,16 @@
 INSERT INTO menu_items (name, description, price, category, image_url) VALUES
 
-  ('Takoyaki', 
-  'Deep fried wheat balls with octopus.', 
-  900, 
-  'Appetizers', 
+  ('Takoyaki',
+  'Deep fried wheat balls with octopus.',
+  900,
+  'Appetizers',
   'https://tokyonoodleshop.com/med/Takoyaki.jpg'),
-  
-  ('Chicken Karage', 
-  '6 pieces of panko coated chicken, 
-  deep fried & served with ginger sauce.', 
-  1300, 
-  'Appetizers', 
+
+  ('Chicken Karage',
+  '6 pieces of panko coated chicken,
+  deep fried & served with ginger sauce.',
+  1300,
+  'Appetizers',
   'https://tokyonoodleshop.com/med/Chicken-Kara-age-scaled.jpg'),
 
   ('Beef Sashimi',
@@ -22,13 +22,13 @@ INSERT INTO menu_items (name, description, price, category, image_url) VALUES
   ('Spicy Chicken Ramen',
   'A savoury combination of spicy chicken in the house famous chicken broth and house-made ramen noodles, stopped with green onions, corn.',
   1600,
-  'Entree'
+  'Entrees',
   'https://tokyonoodleshop.com/med/Spicy-Seafood-Ramen.jpg'),
 
   ('Deluxe Tokyo Sashimi',
   '(36pcs)',
   7500,
-  'Entrees'
+  'Entrees',
   'https://tokyonoodleshop.com/med/Special-Sashimi.jpg'),
 
   ('Seafood Fried Rice',
@@ -36,6 +36,4 @@ INSERT INTO menu_items (name, description, price, category, image_url) VALUES
   1500,
   'Entrees',
   'https://tokyonoodleshop.com/med/Seafood-Fried-Rice.jpg'),
-
- 
   ;
