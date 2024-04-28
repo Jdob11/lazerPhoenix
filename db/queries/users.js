@@ -8,6 +8,8 @@ const getUsers = () => {
     });
 };
 
+//fetch menu item by id
+
 const getUserById = (userId) => {
   const queryStr = `
   SELECT * FROM users
