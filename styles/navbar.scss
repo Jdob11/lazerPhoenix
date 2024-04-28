@@ -1,7 +1,17 @@
 @use 'vars' as *;
 
+.nav{
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
 .navbar{
-  position: absolute;
+  position: fixed;
   top: 1em;
   width: 100%;
   height: 64px;
@@ -14,10 +24,8 @@
   z-index: 1;
 }
 
-.nav{
-  display: flex;
-  align-items: center;
-  justify-content: space-between
+ul{
+  padding-right: 15px;
 }
 
 li{

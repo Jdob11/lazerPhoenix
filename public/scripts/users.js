@@ -14,4 +14,9 @@ $(() => {
       }
     });
   });
+
+  fetchMenuItems(createMenuItemElement); // Generate user menu page
+  // fetchMenuItems(createMenuItemForm); // Generate Owner menu page
+
+  $(document).on('submit', '.menuItem', editMenuButton);
 });
