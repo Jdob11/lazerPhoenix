@@ -30,9 +30,27 @@ const createMenuItemElement = (menuItemData) => {
   return $menuItem;
 };
 
+const createAddMenuItemForm = () => {
+  const $form = $('<form>').addClass('menuItem').attr('action', '/users/addMenuItem').attr('method', 'POST');
+
+  const $itemImageInput = $('<input>').attr('type', 'text').attr('id', 'itemImage').attr('name', 'itemImage').attr('placeholder', 'Image URL');
+  const $inputRow = $('<div>').addClass('inputRow');
+  const $itemNameInput = $('<input>').attr('type', 'text').attr('id', 'itemName').attr('name', 'itemName').attr('placeholder', 'Name');
+  const $itemPriceInput = $('<input>').attr('type', 'text').attr('id', 'itemPrice').attr('name', 'itemPrice').attr('placeholder', 'Price');
+  const $itemDescriptionTextarea = $('<textarea>').attr('id', 'itemDescription').attr('name', 'itemDescription').attr('placeholder', 'Description');
+
+  const $addToMenuButton = $('<button>').attr('type', 'submit').addClass('addToMenuButton').text('Add to Menu');
+
+  $inputRow.append($itemNameInput, $itemPriceInput);
+
+  $form.append($itemImageInput, $inputRow, $itemDescriptionTextarea, $addToMenuButton);
+
+  $('#menuContainer').append($form);
+};
+
 const fetchMenuItems = (cb) => {
   $.get('/users/menuItems', function(data) {
-    data.sort((a, b) => a.id - b.id);
+    data.sort((a, b) => b.id - a.id);
     data.forEach(function(menuItem) {
       const $menuItem = cb(menuItem);
       $('#menuContainer').prepend($menuItem);
@@ -46,9 +64,29 @@ const editMenuButton = function(event) {
   event.preventDefault();
 
   const formData = $(this).serialize();
-  $.post('/users/editMenuItem', formData, function(response) {
+  $.post('/users/editMenuItem', formData)
+    .done(function(response) {
+      console.log(response);
+      // Check if the response contains a message field
+      if (response.message) {
+        // Display the success message
+        alert(response.message);
+      }
+    })
+    .fail(function() {
+      console.error('Error editing menu item');
+    });
+};
+
+
+const addMenuButton = function(event) {
+  event.preventDefault();
+
+  const formData = $(this).serialize();
+  $.post('/users/addMenuItem', formData, function(response) {
     console.log(response);
   }).fail(function() {
     console.error('Error editing menu item');
   });
 }
+

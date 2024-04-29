@@ -25,13 +25,16 @@ $(() => {
     console.log(user);
     if (!user.is_owner) {
     fetchMenuItems(createMenuItemElement); // Generate user menu page
-    } else {
+  } else {
     fetchMenuItems(createMenuItemForm); // Generate Owner menu page
+    createAddMenuItemForm();
     };
   })
   .fail((error) => {
     console.error('Error fetching user:', error);
   });
 
-  $(document).on('submit', '.menuItem', editMenuButton);
+  $(document).on('submit', '.editMenuItemButton', editMenuButton);
+
+  $(document).on('submit', '.addToMenuButton', addMenuButton)
 });
