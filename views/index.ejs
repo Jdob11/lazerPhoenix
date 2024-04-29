@@ -32,23 +32,13 @@
 
 <body>
 
-  <div class="navbar">
-    <div class="nav">
-      <div class="logo"> Lazer Phoenix</div>
-      <ul>
-          <li><a href = "#">Menu</a></li>
-          <li><a href = "#">Contact Us</a></li>
-          <li><a href = "#">Preferences</a></li>
-          <li><a href = "#">Log In</a></li>
-      </ul>
-    </div>
-  </div>
+  <%- include('partials/_navbar') %>
 
   <div class = "banner">
     <img src="/img/moltress.jpg" alt="image of a phoenix">
   </div>
 
-  <div id="menuContainer" class="menuItems">
+   <div id="menuContainer" class="menuItems">
     <!-- <form class="menuItem" action="/users/addMenuItem" method="POST">
       <input type="text" id="itemImage" name="itemImage" placeholder="Image URL" />
       <div class="inputRow">

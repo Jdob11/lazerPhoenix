@@ -10,7 +10,6 @@ const createMenuItemForm = (menuItemData) => {
 
   $inputRow.append($itemNameInput, $itemPriceInput);
   $form.append($itemIdInput, $itemImageInput, $inputRow, $itemDescriptionTextarea, $editMenuItemButton);
-
   return $form;
 };
 

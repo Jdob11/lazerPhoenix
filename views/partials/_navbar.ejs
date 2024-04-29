@@ -1,0 +1,16 @@
+<div class="navbar">
+  <div class="nav">
+    <div class="logo"> Lazer Phoenix</div>
+    <ul>
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">Contact Us</a></li>
+      <li><a href="#">Preferences</a></li>
+      <% if (user.is_owner) { %>
+        <li><a href="#">Owner</a></li>
+      <% } else { %>
+        <li><a href="#">Customer</a></li>
+      <% } %>
+    </ul>
+  </div>
+</div>
+<!-- <li><a href="#">Preferences</a></li> -->
