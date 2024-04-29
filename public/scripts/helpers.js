@@ -1,5 +1,5 @@
 const createMenuItemForm = (menuItemData) => {
-  const $form = $('<form>').addClass('menuItem').attr('action', '/users/editMenuItem').attr('method', 'POST');
+  const $form = $('<form>').addClass('menuItem', 'menuItemForm').attr('action', '/users/editMenuItem').attr('method', 'POST');
   const $itemIdInput = $('<input>').attr('type', 'hidden').attr('name', 'itemId').val(menuItemData.id);
   const $itemImageInput = $('<input>').attr('type', 'text').attr('id', 'itemImage').attr('name', 'itemImage').attr('placeholder', 'Image URL').val(menuItemData.image_url || '');
   const $inputRow = $('<div>').addClass('inputRow');
@@ -31,7 +31,7 @@ const createMenuItemElement = (menuItemData) => {
 };
 
 const createAddMenuItemForm = () => {
-  const $form = $('<form>').addClass('menuItem').attr('action', '/users/addMenuItem').attr('method', 'POST');
+  const $form = $('<form>').addClass('menuItem', 'addMenuItemForm').attr('action', '/users/addMenuItem').attr('method', 'POST');
 
   const $itemImageInput = $('<input>').attr('type', 'text').attr('id', 'itemImage').attr('name', 'itemImage').attr('placeholder', 'Image URL');
   const $inputRow = $('<div>').addClass('inputRow');

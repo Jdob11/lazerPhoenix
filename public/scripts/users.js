@@ -34,7 +34,7 @@ $(() => {
     console.error('Error fetching user:', error);
   });
 
-  $(document).on('submit', '.editMenuItemButton', editMenuButton);
+  $('.menuItemForm').on('submit', editMenuButton);
 
-  $(document).on('submit', '.addToMenuButton', addMenuButton)
+  $('.addMenuItemForm').on('submit', addMenuButton)
 });
