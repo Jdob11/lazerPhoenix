@@ -1,11 +1,14 @@
 const db = require('../connection');
 const { Pool } = require('pg');
 const twilio = require('twilio');
+require('dotenv').config();
+// must use npm install twilio@3.52.0
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
 
+
+const client = require('twilio')(accountSid, authToken);
 
 const sendOrderReceivedSMS = (phoneNumber) => {
     client.messages
@@ -29,5 +32,7 @@ const sendOrderCompletedSMS = (phoneNumber) => {
         .catch(error => console.error('Error sending order completed SMS:', error));
 };
 
+const phoneNumber = '+17807295721';
+sendOrderReceivedSMS(phoneNumber);
 
 module.exports = db;
