@@ -2,8 +2,8 @@ const db = require('../connection');
 const { Pool } = require('pg');
 const twilio = require('twilio');
 
-const accountSid = 'ACa93e8675be6ad28c57aae9767b911ae7';
-const authToken = '052f0616c1d986c1e4b974aee4cb9b1d';
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 
