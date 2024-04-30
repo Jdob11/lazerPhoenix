@@ -7,7 +7,6 @@ require('dotenv').config();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 
-
 const client = require('twilio')(accountSid, authToken);
 
 const sendOrderReceivedSMS = (phoneNumber) => {
@@ -32,6 +31,7 @@ const sendOrderCompletedSMS = (phoneNumber) => {
         .catch(error => console.error('Error sending order completed SMS:', error));
 };
 
+//test
 const phoneNumber = '+17807295721';
 sendOrderReceivedSMS(phoneNumber);
 
