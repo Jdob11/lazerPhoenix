@@ -8,7 +8,7 @@
 const express = require('express');
 const db = require('../db/connection');
 const router  = express.Router();
-const { addMenuItem, editMenuItem, fetchAllMenuItems } = require('../db/queries/menuItems')
+const { addMenuItem, editMenuItem, fetchAllMenuItems } = require('../db/queries/menuItems');
 const { getUserById } = require('../db/queries/users');
 
 router.get('/', (req, res) => {
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/menuItems', async (req, res) => {
+router.get('/menuItems', async(req, res) => {
   try {
     const menuItems = await fetchAllMenuItems();
     res.json(menuItems);
@@ -25,7 +25,7 @@ router.get('/menuItems', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async(req, res) => {
   const userId = req.params.id;
   try {
     const user = await getUserById(userId);

@@ -29,7 +29,7 @@ const addMenuItem = (req, res) => {
       res.status(200).send('Menu item added successfully');
     }
   });
-}
+};
 
 const editMenuItem = (req, res) => {
   const { itemId, itemImage, itemName, itemPrice, itemDescription } = req.body;
@@ -56,7 +56,7 @@ const editMenuItem = (req, res) => {
       }
     }
   });
-}
+};
 
 
 //remove menu item
@@ -67,16 +67,16 @@ const removeMenuItem = (menuItemId) => {
   RETURNING *;
   `;
 
-  const queryParams = [menuItemId]
+  const queryParams = [menuItemId];
 
   return db.query(queryStr, queryParams)
-  .then((results) => {
-    return results.rows[0];
-  })
-  .catch((err) => {
-    console.log("error: ", err);
-    throw err;
-  });
+    .then((results) => {
+      return results.rows[0];
+    })
+    .catch((err) => {
+      console.log("error: ", err);
+      throw err;
+    });
 };
 
 //fetch menu item by id
@@ -89,13 +89,13 @@ const menuItemId = (menuItemId) => {
   const queryParams = [menuItemId];
 
   return db.query(queryStr, queryParams)
-  .then((results) => {
-    return results.rows[0];
-  })
-  .catch((err) => {
-    console.log("error:", err);
-    throw err;
-  });
+    .then((results) => {
+      return results.rows[0];
+    })
+    .catch((err) => {
+      console.log("error:", err);
+      throw err;
+    });
 };
 
 
@@ -105,4 +105,4 @@ module.exports = {
   removeMenuItem,
   menuItemId,
   editMenuItem
- };
+};

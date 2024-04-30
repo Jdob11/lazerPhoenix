@@ -1,3 +1,12 @@
+const {
+  createMenuItemForm,
+  createMenuItemElement,
+  createAddMenuItemForm,
+  fetchMenuItems,
+  editMenuButton,
+  addMenuButton
+} = require('/helpers');
+
 // Client facing scripts here
 $(() => {
   $('#fetch-users').on('click', () => {
@@ -5,14 +14,14 @@ $(() => {
       method: 'GET',
       url: '/api/users'
     })
-    .done((response) => {
-      const $usersList = $('#users');
-      $usersList.empty();
+      .done((response) => {
+        const $usersList = $('#users');
+        $usersList.empty();
 
-      for(const user of response.users) {
-        $(`<li class="user">`).text(user.name).appendTo($usersList);
-      }
-    });
+        for (const user of response.users) {
+          $(`<li class="user">`).text(user.name).appendTo($usersList);
+        }
+      });
   });
 
   const userId = window.location.pathname.split('/').pop();
@@ -21,20 +30,20 @@ $(() => {
     method: 'GET',
     url: `/users/${userId}`
   })
-  .done((user) => {
-    console.log(user);
-    if (!user.is_owner) {
-    fetchMenuItems(createMenuItemElement); // Generate user menu page
-  } else {
-    fetchMenuItems(createMenuItemForm); // Generate Owner menu page
-    createAddMenuItemForm();
-    };
-  })
-  .fail((error) => {
-    console.error('Error fetching user:', error);
-  });
+    .done((user) => {
+      console.log(user);
+      if (!user.is_owner) {
+        fetchMenuItems(createMenuItemElement); // Generate user menu page
+      } else {
+        fetchMenuItems(createMenuItemForm); // Generate Owner menu page
+        createAddMenuItemForm();
+      }
+    })
+    .fail((error) => {
+      console.error('Error fetching user:', error);
+    });
 
   $('.menuItemForm').on('submit', editMenuButton);
 
-  $('.addMenuItemForm').on('submit', addMenuButton)
+  $('.addMenuItemForm').on('submit', addMenuButton);
 });

@@ -1,3 +1,5 @@
+
+
 const createMenuItemForm = (menuItemData) => {
   const $form = $('<form>').addClass('menuItem', 'menuItemForm').attr('action', '/users/editMenuItem').attr('method', 'POST');
   const $itemIdInput = $('<input>').attr('type', 'hidden').attr('name', 'itemId').val(menuItemData.id);
@@ -58,7 +60,7 @@ const fetchMenuItems = (cb) => {
   }).fail(function() {
     console.error('Error fetching menu items');
   });
-}
+};
 
 const editMenuButton = function(event) {
   event.preventDefault();
@@ -88,5 +90,13 @@ const addMenuButton = function(event) {
   }).fail(function() {
     console.error('Error editing menu item');
   });
-}
+};
 
+module.exports = {
+  createMenuItemForm,
+  createMenuItemElement,
+  createAddMenuItemForm,
+  fetchMenuItems,
+  editMenuButton,
+  addMenuButton
+};
