@@ -51,3 +51,18 @@ const editMenuButton = function(event) {
     console.error('Error editing menu item');
   });
 }
+
+// Function to add item to cart
+function addToCart(item) {
+  // Assuming you have a 'cart' array stored in the session or local storage
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push(item);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  console.log("Item added to cart:", item);
+  // Update UI here to reflect the item being added to the cart
+}
+
+// Assuming your order button has an id 'orderButton'
+document.getElementById('orderButton').addEventListener('click', function() {
+  addToCart(item);
+});

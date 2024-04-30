@@ -13,3 +13,32 @@
   bottom: 1em;
   right: 1em;
 }
+
+/*cart */
+
+.cart-overlay {
+position: fixed;
+inset: 0;
+background: var(--color7);
+transition: var(--transition);
+opacity: 1;
+}
+
+.cart-overlay.show{
+visibility: visible;
+}
+
+.cart {
+  position: fixed;
+  inset-block: 0;
+  right: 0;
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+  background: var(color8);
+  transition: var(--transition);
+}
+
+.cart {
+transform: none;
+}
