@@ -23,7 +23,7 @@ const sendOrderCompletedSMS = (phoneNumber) => {
         .create({
             body: "Your order is ready for pickup.",
             from: '+14256107880',
-            to: phoneNumber
+            to: phoneNumber // use client's ph # here from DB
         })
         .then(message => console.log('Order completed SMS sent:', message.sid))
         .catch(error => console.error('Error sending order completed SMS:', error));
