@@ -1,12 +1,3 @@
-const {
-  createMenuItemForm,
-  createMenuItemElement,
-  createAddMenuItemForm,
-  fetchMenuItems,
-  editMenuButton,
-  addMenuButton
-} = require('/helpers');
-
 // Client facing scripts here
 $(() => {
   $('#fetch-users').on('click', () => {
