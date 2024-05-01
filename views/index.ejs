@@ -34,6 +34,7 @@
 <body>
 
 
+
   <%- include('partials/_navbar') %>
 
   <div class = "banner">
@@ -54,13 +55,18 @@
   </div>
   <button class="shopping-cart-button"><i class="fa-solid fa-cart-shopping"></i></button>
 
-  <!-- SHOPPING CART-->
+    <!-- SHOPPING CART-->
 
-<div class = "cart-overlay"></div>
-<div class = "cart">
-  <div class ="cart-header">
+  <div class = "cartTab"></div>
+    <h1>Your Cart</h1>
+    <div class ="listCart">
+    </div>
+    <div class="btn">
+      <button class="close">CLOSE</button>
+      <button class="close">ORDER</button>
+    </div>
   </div>
-</div>
+
 
 </body>
 
