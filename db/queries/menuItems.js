@@ -1,7 +1,7 @@
 const db = require('../connection');
 
 // get all menu items
-const fetchAllMenuItems = () => {
+const getAllMenuItems = () => {
   return db.query('SELECT * FROM menu_items;')
     .then(data => {
       return data.rows;
@@ -9,7 +9,7 @@ const fetchAllMenuItems = () => {
 };
 
 // add a new menu item
-const addMenuItem = (req, res) => {
+const addNewMenuItem = (req, res) => {
   const { itemImage, itemName, itemPrice, itemDescription } = req.body;
 
   const queryStr = `
@@ -60,7 +60,7 @@ const editMenuItem = (req, res) => {
 
 
 //remove menu item
-const removeMenuItem = (menuItemId) => {
+const removeMenuItemById = (menuItemId) => {
   const queryStr = `
   DELETE FROM menu_items
   WHERE id = $1
@@ -80,7 +80,7 @@ const removeMenuItem = (menuItemId) => {
 };
 
 //fetch menu item by id
-const menuItemId = (menuItemId) => {
+const getMenuItemById = (menuItemId) => {
   const queryStr = `
   SELECT * FROM menu_items
   WHERE id = $1;
@@ -100,9 +100,9 @@ const menuItemId = (menuItemId) => {
 
 
 module.exports = {
-  fetchAllMenuItems,
-  addMenuItem,
-  removeMenuItem,
-  menuItemId,
+  getAllMenuItems,
+  addNewMenuItem,
+  removeMenuItemById,
+  getMenuItemById,
   editMenuItem
 };

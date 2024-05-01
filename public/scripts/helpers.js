@@ -1,4 +1,4 @@
-const createMenuItemForm = (menuItemData) => {
+const createEditMenuItemForm = (menuItemData) => {
   const $form = $('<form>').addClass('menuItem', 'menuItemForm');
   const $itemIdInput = $('<input>').attr('type', 'hidden').attr('name', 'itemId').val(menuItemData.id);
   const $itemImageInput = $('<input>').attr('type', 'text').attr('id', 'itemImage').attr('name', 'itemImage').attr('placeholder', 'Image URL').val(menuItemData.image_url || '');
@@ -10,7 +10,7 @@ const createMenuItemForm = (menuItemData) => {
 
   $inputRow.append($itemNameInput, $itemPriceInput);
   $form.append($itemIdInput, $itemImageInput, $inputRow, $itemDescriptionTextarea, $editMenuItemButton);
-  $form.on('submit', editMenuButton);
+  $form.on('submit', editMenuItemButton);
 
   return $form;
 };
@@ -31,8 +31,8 @@ const createMenuItemElement = (menuItemData) => {
   return $menuItem;
 };
 
-const createAddMenuItemForm = () => {
-  const $form = $('<form>').addClass('menuItem', 'addMenuItemForm');
+const createAddNewMenuItemForm = () => {
+  const $form = $('<form>').addClass('menuItem', 'addMenuNewItemForm');
 
   const $itemImageInput = $('<input>').attr('type', 'text').attr('id', 'itemImage').attr('name', 'itemImage').attr('placeholder', 'Image URL');
   const $inputRow = $('<div>').addClass('inputRow');
@@ -45,12 +45,12 @@ const createAddMenuItemForm = () => {
   $inputRow.append($itemNameInput, $itemPriceInput);
 
   $form.append($itemImageInput, $inputRow, $itemDescriptionTextarea, $addToMenuButton);
-  $form.on('submit', addMenuButton);
+  $form.on('submit', addMenuItemButton);
 
   $('#menuContainer').append($form);
 };
 
-const fetchMenuItems = (cb) => {
+const getMenuItems = (cb) => {
   $.get('/users/menuItems', function(data) {
     data.sort((a, b) => b.id - a.id);
     data.forEach(function(menuItem) {
@@ -62,7 +62,7 @@ const fetchMenuItems = (cb) => {
   });
 };
 
-const editMenuButton = function(event) {
+const editMenuItemButton = function(event) {
   event.preventDefault();
 
   const formData = $(this).serialize();
@@ -80,18 +80,18 @@ const editMenuButton = function(event) {
 };
 
 
-const addMenuButton = function(event) {
+const addMenuItemButton = function(event) {
   event.preventDefault();
 
   const formData = $(this).serialize();
-  $.post('/users/addMenuItem', formData)
+  $.post('/users/addNewMenuItem', formData)
     .done(function(response) {
       alert('Item Added Successfully');
       console.log(response);
       if (response.message) {
         alert(response.message);
-        fetchMenuItems(createMenuItemForm);
-        createAddMenuItemForm();
+        getMenuItems(createEditMenuItemForm);
+        createAddMenuNewItemForm();
       }
     })
     .fail(function() {
