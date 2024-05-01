@@ -21,7 +21,7 @@ const createMenuItemElement = (menuItemData) => {
   const priceInDollars = (menuItemData.price / 100).toFixed(2);
   const $menuItemPrice = $('<h3>').addClass('menuItemPrice').text('$' + priceInDollars);
   const $menuItemDescription = $('<p>').addClass('menuItemDescription').text(menuItemData.description);
-  const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order');
+  const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order').attr('product_name', menuItemData.name);
 
   $itemInfo.append($menuItemName, $menuItemPrice);
   $menuItem.append($img, $itemInfo, $menuItemDescription, $orderButton);
@@ -36,10 +36,22 @@ const fetchMenuItems = (cb) => {
       const $menuItem = cb(menuItem);
       $('#menuContainer').prepend($menuItem);
     });
+
+    // Bind click event to orderButton after menu items are added
+    $('.orderButton').click(function(){
+      console.log("You clicked the order button");
+      // Any further action you want to perform on order button click
+    });
   }).fail(function() {
     console.error('Error fetching menu items');
   });
-}
+};
+
+$(document).ready(function(){
+  console.log("page is ready");
+  fetchMenuItems(function(menuItem) {
+  });
+});
 
 const editMenuButton = function(event) {
   event.preventDefault();
@@ -52,7 +64,7 @@ const editMenuButton = function(event) {
   });
 }
 
-// Function to add item to cart
+// Function to add item to cart, template from Larry
 function addToCart(item) {
   // Assuming you have a 'cart' array stored in the session or local storage
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -62,7 +74,10 @@ function addToCart(item) {
   // Update UI here to reflect the item being added to the cart
 }
 
-// Assuming your order button has an id 'orderButton'
-document.getElementById('orderButton').addEventListener('click', function() {
-  addToCart(item);
-});
+
+
+// [To make sure that your orderButton handler is working] - done
+// Grab the attribute from the $(this) object
+// using getattr method from jquery
+// store the cart into the local storage
+
