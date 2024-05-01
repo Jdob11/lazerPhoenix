@@ -12,10 +12,25 @@
   position: fixed;
   bottom: 1em;
   right: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 999;
 }
 
 /*cart */
+
+#cartCounter {
+  background-color: $cart-button-cart-color;
+  border-radius: 50%;
+  height: 1.4em;
+  width: 1.4em;
+  padding-top: 3px;
+  color: $cart-button-font-color;
+  font-size: 20px;
+  position: absolute;
+  top: -1.25em; /* Adjust this value as needed */
+  right: -1.25em; /* Adjust this value as needed */
 
 .cartTab
 {

@@ -19,16 +19,16 @@ const getUserById = (userId) => {
   const queryParams = [userId];
 
   return db.query(queryStr, queryParams)
-    .then((results) => {
-      return results.rows[0];
-    })
-    .catch((err) => {
-      console.log("error:", err);
-      throw err;
-    });
+  .then((results) => {
+    return results.rows[0];
+  })
+  .catch((err) => {
+    console.log("error:", err);
+    throw err;
+  });
 };
 
 module.exports = {
   getUsers,
   getUserById
-};
+  };
