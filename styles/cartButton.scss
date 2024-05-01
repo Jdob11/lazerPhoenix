@@ -10,12 +10,29 @@
   border: none;
   cursor: pointer;
   position: fixed;
-  bottom: 1em;
+  bottom: 2em;
   right: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 999;
 }
 
 /*cart */
+
+#cartCounter {
+  background-color: $cart-button-cart-color;
+  border-radius: 50%;
+  height: 1.4em;
+  width: 1.4em;
+  padding-top: 3px;
+  color: $cart-button-font-color;
+  font-size: 20px;
+  position: absolute;
+  top: 0; /* Adjust this value as needed */
+  right: 0; /* Adjust this value as needed */
+}
+
 
 .cartTab
 {
@@ -25,8 +42,8 @@
   position: fixed;
   inset: 20px 0 0 auto;
   display: none;
-  z-index: 998;
   grid-template-rows: 70px 1fr 70px;
+  z-index: 998;
 }
 
 .cartTab.open {
@@ -37,23 +54,39 @@
   padding: 20px;
   margin: 0;
   font-weight: 300;
-  grid-row: 1;
 }
 
 .cartTab .btn{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-row: 3;
 }
 
 .cartTab .btn button{
   background-color: #E8BC0E;
   border: none;
-  font-family: Poppins;
   font-weight: 500;
   cursor: pointer;
 }
 
 .cartTab .btn .close{
   background-color: #eee;
+}
+
+.cartTab .btn button:hover,
+.cartTab .btn button:focus {
+  background-color: #D4A419;
+  color: #fff;
+}
+
+.cartTab .btn button:active {
+  background-color: #C09316;
+}
+
+.cartTab .btn button.close:hover,
+.cartTab .btn button.close:focus {
+  background-color: #555;
+}
+
+.cartTab .btn button.close:active {
+  background-color: #333;
 }
