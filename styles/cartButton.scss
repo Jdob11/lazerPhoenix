@@ -12,4 +12,47 @@
   position: fixed;
   bottom: 1em;
   right: 1em;
+  z-index: 999;
+}
+
+/*cart */
+
+.cartTab
+{
+  width: 400px;
+  background-color: #353432;
+  color: #eee;
+  position: fixed;
+  inset: 20px 0 0 auto;
+  display: none;
+  z-index: 998;
+}
+
+.cartTab.open {
+  display: grid;
+}
+
+.cartTab h1{
+  padding: 20px;
+  margin: 0;
+  font-weight: 300;
+  grid-row: 1;
+}
+
+.cartTab .btn{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row: 3;
+}
+
+.cartTab .btn button{
+  background-color: #E8BC0E;
+  border: none;
+  font-family: Poppins;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cartTab .btn .close{
+  background-color: #eee;
 }

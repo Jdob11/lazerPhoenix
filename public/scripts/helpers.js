@@ -23,7 +23,7 @@ const createMenuItemElement = (menuItemData) => {
   const priceInDollars = (menuItemData.price / 100).toFixed(2);
   const $menuItemPrice = $('<h3>').addClass('menuItemPrice').text('$' + priceInDollars);
   const $menuItemDescription = $('<p>').addClass('menuItemDescription').text(menuItemData.description);
-  const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order');
+  const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order').attr('product_name', menuItemData.name);
 
   $itemInfo.append($menuItemName, $menuItemPrice);
   $menuItem.append($img, $itemInfo, $menuItemDescription, $orderButton);
@@ -57,6 +57,20 @@ const getMenuItems = (cb) => {
       const $menuItem = cb(menuItem);
       $('#menuContainer').prepend($menuItem);
     });
+
+     // Click event handler for order button
+     $(document).on('click', '.orderButton', function() {
+      // Grab the product name from the menu item associated with the clicked order button
+      const menuItemName = $(this).attr('product_name');
+      console.log(menuItemName);
+
+      // Create an item object with the menu item's name
+      const item = { name: menuItemName };
+
+      // Add the item to the cart
+      addToCart(item);
+    });
+
   }).fail(function() {
     console.error('Error fetching menu items');
   });
@@ -66,19 +80,37 @@ const editMenuItemButton = function(event) {
   event.preventDefault();
 
   const formData = $(this).serialize();
-  $.post('/users/editMenuItem', formData)
-    .done(function(response) {
-      alert('Item Edited Successfully');
-      console.log(response);
-      if (response.message) {
-        alert(response.message);
-      }
-    })
-    .fail(function() {
-      console.error('Error editing menu item');
-    });
-};
 
+  $.post('/users/editMenuItem', formData, function(response) {
+    console.log(response);
+  }).fail(function() {
+    console.error('Error editing menu item');
+  });
+}
+
+//   $.post('/users/editMenuItem', formData)
+//     .done(function(response) {
+//       alert('Item Edited Successfully');
+//       console.log(response);
+//       if (response.message) {
+//         alert(response.message);
+//       }
+//     })
+//     .fail(function() {
+//       console.error('Error editing menu item');
+//     });
+// };
+
+
+// Function to add item to cart
+function addToCart(item) {
+  // Assuming you have a 'cart' array stored in the session or local storage
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push(item);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  console.log("Item added to cart:", item);
+  // Update UI here to reflect the item being added to the cart
+}
 
 const addMenuItemButton = function(event) {
   event.preventDefault();

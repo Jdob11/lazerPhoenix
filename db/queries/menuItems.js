@@ -4,6 +4,7 @@ const db = require('../connection');
 const getAllMenuItems = () => {
   return db.query('SELECT * FROM menu_items;')
     .then(data => {
+      console.log("data.rows", data.rows)
       return data.rows;
     });
 };
