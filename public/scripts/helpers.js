@@ -1,5 +1,5 @@
 const createMenuItemForm = (menuItemData) => {
-  const $form = $('<form>').addClass('menuItem', 'menuItemForm').attr('action', '/users/editMenuItem').attr('method', 'POST');
+  const $form = $('<form>').addClass('menuItem', 'menuItemForm');
   const $itemIdInput = $('<input>').attr('type', 'hidden').attr('name', 'itemId').val(menuItemData.id);
   const $itemImageInput = $('<input>').attr('type', 'text').attr('id', 'itemImage').attr('name', 'itemImage').attr('placeholder', 'Image URL').val(menuItemData.image_url || '');
   const $inputRow = $('<div>').addClass('inputRow');
@@ -10,6 +10,7 @@ const createMenuItemForm = (menuItemData) => {
 
   $inputRow.append($itemNameInput, $itemPriceInput);
   $form.append($itemIdInput, $itemImageInput, $inputRow, $itemDescriptionTextarea, $editMenuItemButton);
+  $form.on('submit', editMenuButton)
 
   return $form;
 };
@@ -66,10 +67,9 @@ const editMenuButton = function(event) {
   const formData = $(this).serialize();
   $.post('/users/editMenuItem', formData)
     .done(function(response) {
+      alert('Item Edited Successfully');
       console.log(response);
-      // Check if the response contains a message field
       if (response.message) {
-        // Display the success message
         alert(response.message);
       }
     })
