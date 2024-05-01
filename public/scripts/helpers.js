@@ -48,7 +48,7 @@ const fetchMenuItems = (cb) => {
   });
 };
 
-const addToCartButton = () => {
+const addToCartButton = function() {
         // Grab the product name from the menu item associated with the clicked order button
         const menuItemName = $(this).attr('product_name');
         console.log(menuItemName);
@@ -59,7 +59,7 @@ const addToCartButton = () => {
         addToCart(item);
 }
 
-const removeFromCartButton = () => {
+const removeFromCartButton = function() {
   // Grab the product name from the menu item associated with the clicked order button
   const menuItemName = $(this).attr('product_name');
   console.log(menuItemName);
