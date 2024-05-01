@@ -10,7 +10,7 @@
   border: none;
   cursor: pointer;
   position: fixed;
-  bottom: 1em;
+  bottom: 2em;
   right: 1em;
   display: flex;
   align-items: center;
@@ -33,7 +33,6 @@
   right: 0; /* Adjust this value as needed */
 }
 
-}
 
 .cartTab
 {
@@ -65,11 +64,29 @@
 .cartTab .btn button{
   background-color: #E8BC0E;
   border: none;
-  font-family: Poppins;
   font-weight: 500;
   cursor: pointer;
 }
 
 .cartTab .btn .close{
   background-color: #eee;
+}
+
+.cartTab .btn button:hover,
+.cartTab .btn button:focus {
+  background-color: #D4A419;
+  color: #fff;
+}
+
+.cartTab .btn button:active {
+  background-color: #C09316;
+}
+
+.cartTab .btn button.close:hover,
+.cartTab .btn button.close:focus {
+  background-color: #555;
+}
+
+.cartTab .btn button.close:active {
+  background-color: #333;
 }
