@@ -21,9 +21,11 @@ const createMenuItemElement = (menuItemData) => {
   const priceInDollars = (menuItemData.price / 100).toFixed(2);
   const $menuItemPrice = $('<h3>').addClass('menuItemPrice').text('$' + priceInDollars);
   const $menuItemDescription = $('<p>').addClass('menuItemDescription').text(menuItemData.description);
+
   const $buttonContainer = $('<div>').addClass('itemInfo');
   const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order').attr('product_name', menuItemData.name);
   const $removeButton = $('<button>').attr('type', 'button').addClass('removeButton').text('Remove').attr('product_name', menuItemData.name);
+
 
   $itemInfo.append($menuItemName, $menuItemPrice);
   $buttonContainer.append($orderButton, $removeButton);
@@ -50,7 +52,6 @@ const addToCartButton = () => {
         // Grab the product name from the menu item associated with the clicked order button
         const menuItemName = $(this).attr('product_name');
         console.log(menuItemName);
-
         // Create an item object with the menu item's name
         const item = { name: menuItemName };
 
@@ -65,21 +66,34 @@ const removeFromCartButton = () => {
 
   // Create an item object with the menu item's name
   const item = { name: menuItemName };
-
-  // Add the item to the cart
+    // Add the item to the cart
   removeFromCart(item);
 }
 
 const editMenuButton = function(event) {
   event.preventDefault();
 
-  const formData = $(this).serialize();
+    const formData = $(this).serialize();
+
   $.post('/users/editMenuItem', formData, function(response) {
     console.log(response);
   }).fail(function() {
     console.error('Error editing menu item');
   });
 }
+
+//   $.post('/users/editMenuItem', formData)
+//     .done(function(response) {
+//       alert('Item Edited Successfully');
+//       console.log(response);
+//       if (response.message) {
+//         alert(response.message);
+//       }
+//     })
+//     .fail(function() {
+//       console.error('Error editing menu item');
+//     });
+// };
 
 // Function to add item to cart, template from Larry
 function addToCart(item) {
@@ -108,11 +122,4 @@ function removeFromCart(itemToRemove) {
     console.log("Item not found in cart:", itemToRemove);
   }
 }
-
-
-
-// [To make sure that your orderButton handler is working] - done
-// Grab the attribute from the $(this) object
-// using getattr method from jquery
-// store the cart into the local storage
 
