@@ -10,7 +10,7 @@
   border: none;
   cursor: pointer;
   position: fixed;
-  bottom: 1em;
+  bottom: 2em;
   right: 1em;
   display: flex;
   align-items: center;
@@ -41,6 +41,7 @@
   position: fixed;
   inset: 20px 0 0 auto;
   display: none;
+  grid-template-rows: 70px 1fr 70px;
   z-index: 998;
 }
 
@@ -52,23 +53,39 @@
   padding: 20px;
   margin: 0;
   font-weight: 300;
-  grid-row: 1;
 }
 
 .cartTab .btn{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-row: 3;
 }
 
 .cartTab .btn button{
   background-color: #E8BC0E;
   border: none;
-  font-family: Poppins;
   font-weight: 500;
   cursor: pointer;
 }
 
 .cartTab .btn .close{
   background-color: #eee;
+}
+
+.cartTab .btn button:hover,
+.cartTab .btn button:focus {
+  background-color: #D4A419;
+  color: #fff;
+}
+
+.cartTab .btn button:active {
+  background-color: #C09316;
+}
+
+.cartTab .btn button.close:hover,
+.cartTab .btn button.close:focus {
+  background-color: #555;
+}
+
+.cartTab .btn button.close:active {
+  background-color: #333;
 }
