@@ -54,9 +54,10 @@ transform: none;
 #cartCounter {
   background-color: $cart-button-cart-color;
   border-radius: 50%;
-  height: 1.25em;
-  width: 1.25em;
-  color: $cart-button-background-color;
+  height: 1.4em;
+  width: 1.4em;
+  padding-top: 3px;
+  color: $cart-button-font-color;
   font-size: 20px;
   position: absolute;
   top: -1.25em; /* Adjust this value as needed */
