@@ -8,7 +8,7 @@
 const express = require('express');
 const db = require('../db/connection');
 const router  = express.Router();
-const { addMenuItem, editMenuItem, fetchAllMenuItems } = require('../db/queries/menuItems')
+const { addNewMenuItem, editMenuItem, getAllMenuItems } = require('../db/queries/menuItems');
 const { getUserById } = require('../db/queries/users');
 
 router.get('/', (req, res) => {
@@ -16,16 +16,16 @@ router.get('/', (req, res) => {
 });
 
 
-router.get('/menuItems', async (req, res) => {
+router.get('/menuItems', async(req, res) => {
   try {
-    const menuItems = await fetchAllMenuItems();
+    const menuItems = await getAllMenuItems();
     res.json(menuItems);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching menu items' });
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async(req, res) => {
   const userId = req.params.id;
   try {
     const user = await getUserById(userId);
@@ -40,7 +40,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/addMenuItem', addMenuItem);
+router.post('/addNewMenuItem', addNewMenuItem);
 
 router.post('/editMenuItem', editMenuItem);
 
