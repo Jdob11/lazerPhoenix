@@ -39,12 +39,19 @@
   margin-top: 10px;
   padding: 5px;
   border: none;
-  background-color: $menu-item-button-color;
   font-family: $menu-item-font;
   color: $menu-item-button-font-color;
   cursor: pointer;
   border-radius: 5px;
-  width: 100%;
+  width: calc(50% - 5px);
+}
+
+.orderButton {
+  background-color: $order-item-button-color;
+}
+
+.removeButton {
+  background-color: $remove-item-button-color;
 }
 
 .itemInfo {

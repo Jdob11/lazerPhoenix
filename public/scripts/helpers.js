@@ -21,10 +21,13 @@ const createMenuItemElement = (menuItemData) => {
   const priceInDollars = (menuItemData.price / 100).toFixed(2);
   const $menuItemPrice = $('<h3>').addClass('menuItemPrice').text('$' + priceInDollars);
   const $menuItemDescription = $('<p>').addClass('menuItemDescription').text(menuItemData.description);
+  const $buttonContainer = $('<div>').addClass('itemInfo');
   const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order').attr('product_name', menuItemData.name);
+  const $removeButton = $('<button>').attr('type', 'button').addClass('removeButton').text('Remove').attr('product_name', menuItemData.name);
 
   $itemInfo.append($menuItemName, $menuItemPrice);
-  $menuItem.append($img, $itemInfo, $menuItemDescription, $orderButton);
+  $buttonContainer.append($orderButton, $removeButton);
+  $menuItem.append($img, $itemInfo, $menuItemDescription, $buttonContainer);
 
   return $menuItem;
 };
@@ -73,9 +76,38 @@ function addToCart(item) {
   // Assuming you have a 'cart' array stored in the session or local storage
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   cart.push(item);
+  let cartLength = cart.length;
+  document.getElementById('cartCounter').textContent = cartLength;
   localStorage.setItem('cart', JSON.stringify(cart));
-  console.log("Item added to cart:", item);
+  console.log("Item added to cart:", cart);
   // Update UI here to reflect the item being added to the cart
+}
+
+function removeFromCart(itemToRemove) {
+  // Retrieve the cart array from local storage
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Find the index of the item to remove in the cart array
+  const index = cart.findIndex(item => item === itemToRemove);
+
+  // If the item is found, remove it from the cart array
+  if (index !== -1) {
+    cart.splice(index, 1);
+
+    // Update the cart counter
+    const cartLength = cart.length;
+    document.getElementById('cartCounter').textContent = cartLength;
+
+    // Save the updated cart array back to local storage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    console.log("Item removed from cart:", itemToRemove);
+
+    // Optionally, update the UI to reflect the removal of the item from the cart
+    // (You may need to implement this part based on your UI requirements)
+  } else {
+    console.log("Item not found in cart:", itemToRemove);
+  }
 }
 
 

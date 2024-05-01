@@ -12,6 +12,9 @@
   position: fixed;
   bottom: 1em;
   right: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*cart */
@@ -43,4 +46,19 @@ visibility: visible;
 
 .cart {
 transform: none;
+}
+.cart-icon-container {
+  position: relative;
+}
+
+#cartCounter {
+  background-color: $cart-button-cart-color;
+  border-radius: 50%;
+  height: 1.25em;
+  width: 1.25em;
+  color: $cart-button-background-color;
+  font-size: 20px;
+  position: absolute;
+  top: -1.25em; /* Adjust this value as needed */
+  right: -1.25em; /* Adjust this value as needed */
 }
