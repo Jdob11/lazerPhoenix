@@ -20,7 +20,7 @@
   height: min-content;
   width: min-content;
 position: fixed;
-// inset: 0;
+inset: 0;
 background: var(--color7);
 transition: var(--transition);
 opacity: 1;
@@ -32,10 +32,10 @@ visibility: visible;
 
 .cart {
   position: fixed;
-  // inset-block: 0;
+  inset-block: 0;
   right: 0;
-  // width: 100%;
-  // max-width: 100px;
+  width: 100%;
+  max-width: 100px;
   padding: 20px;
   background: var(color8);
   transition: var(--transition);

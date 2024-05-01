@@ -2,10 +2,27 @@ document.addEventListener("DOMContentLoaded", function(){
   const shoppingCartButton = document.querySelector('.shopping-cart-button');
   const cartOverlay = document.querySelector('.cart-overlay');
 
-function toggleCartOverlay(){
-  console.log('BUTTON CLICKED');
-  cartOverlay.classList.toggle('open');
+  function toggleCartOverlay(){
+    console.log('BUTTON CLICKED');
+    cartOverlay.classList.toggle('open');
 
-}
-shoppingCartButton.addEventListener('click', toggleCartOverlay);
+    // If the cart overlay is open, log the cart data to the console
+    if (cartOverlay.classList.contains('open')) {
+      // Retrieve cart data from local storage
+      const cartData = getCartData();
+      console.log('Cart Data:');
+      // Log each item in the cart data
+      cartData.forEach(item => {
+        console.log(item);
+      });
+    }
+  }
+
+  // Add event listener to the shopping cart button to trigger toggleCartOverlay
+  shoppingCartButton.addEventListener('click', toggleCartOverlay);
+
+  // Function to retrieve cart data from local storage
+  function getCartData() {
+    return JSON.parse(localStorage.getItem('cart')) || [];
+  }
 });

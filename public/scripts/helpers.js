@@ -68,7 +68,7 @@ const editMenuButton = function(event) {
   });
 }
 
-// Function to add item to cart, template from Larry
+// Function to add item to cart
 function addToCart(item) {
   // Assuming you have a 'cart' array stored in the session or local storage
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -79,9 +79,4 @@ function addToCart(item) {
 }
 
 
-
-// [To make sure that your orderButton handler is working] - done
-// Grab the attribute from the $(this) object
-// using getattr method from jquery
-// store the cart into the local storage
 
