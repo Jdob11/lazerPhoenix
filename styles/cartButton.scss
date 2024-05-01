@@ -26,6 +26,7 @@
   inset: 20px 0 0 auto;
   display: none;
   z-index: 998;
+  grid-template-rows: 70px 1fr 70px;
 }
 
 .cartTab.open {
