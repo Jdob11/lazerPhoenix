@@ -10,7 +10,7 @@ const createMenuItemForm = (menuItemData) => {
 
   $inputRow.append($itemNameInput, $itemPriceInput);
   $form.append($itemIdInput, $itemImageInput, $inputRow, $itemDescriptionTextarea, $editMenuItemButton);
-  $form.on('submit', editMenuButton)
+  $form.on('submit', editMenuButton);
 
   return $form;
 };
@@ -32,7 +32,7 @@ const createMenuItemElement = (menuItemData) => {
 };
 
 const createAddMenuItemForm = () => {
-  const $form = $('<form>').addClass('menuItem', 'addMenuItemForm').attr('action', '/users/addMenuItem').attr('method', 'POST');
+  const $form = $('<form>').addClass('menuItem', 'addMenuItemForm');
 
   const $itemImageInput = $('<input>').attr('type', 'text').attr('id', 'itemImage').attr('name', 'itemImage').attr('placeholder', 'Image URL');
   const $inputRow = $('<div>').addClass('inputRow');
@@ -45,6 +45,7 @@ const createAddMenuItemForm = () => {
   $inputRow.append($itemNameInput, $itemPriceInput);
 
   $form.append($itemImageInput, $inputRow, $itemDescriptionTextarea, $addToMenuButton);
+  $form.on('submit', addMenuButton);
 
   $('#menuContainer').append($form);
 };
@@ -83,9 +84,17 @@ const addMenuButton = function(event) {
   event.preventDefault();
 
   const formData = $(this).serialize();
-  $.post('/users/addMenuItem', formData, function(response) {
-    console.log(response);
-  }).fail(function() {
-    console.error('Error editing menu item');
-  });
+  $.post('/users/addMenuItem', formData)
+    .done(function(response) {
+      alert('Item Added Successfully');
+      console.log(response);
+      if (response.message) {
+        alert(response.message);
+        fetchMenuItems(createMenuItemForm);
+        createAddMenuItemForm();
+      }
+    })
+    .fail(function() {
+      console.error('Error adding menu item');
+    });
 };
