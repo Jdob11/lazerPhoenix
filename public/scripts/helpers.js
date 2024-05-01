@@ -37,21 +37,25 @@ const fetchMenuItems = (cb) => {
       $('#menuContainer').prepend($menuItem);
     });
 
-    // Bind click event to orderButton after menu items are added
-    $('.orderButton').click(function(){
-      console.log("You clicked the order button");
-      // Any further action you want to perform on order button click
+     // Click event handler for order button
+     $(document).on('click', '.orderButton', function() {
+      // Grab the product name from the menu item associated with the clicked order button
+      const menuItemName = $(this).attr('product_name');
+      console.log(menuItemName);
+
+      // Create an item object with the menu item's name
+      const item = { name: menuItemName };
+
+      // Add the item to the cart
+      addToCart(item);
     });
+
   }).fail(function() {
     console.error('Error fetching menu items');
   });
 };
 
-$(document).ready(function(){
-  console.log("page is ready");
-  fetchMenuItems(function(menuItem) {
-  });
-});
+
 
 const editMenuButton = function(event) {
   event.preventDefault();

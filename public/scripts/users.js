@@ -22,7 +22,7 @@ $(() => {
     url: `/users/${userId}`
   })
   .done((user) => {
-    // console.log(user);
+    console.log(user);
     if (!user.is_owner) {
     fetchMenuItems(createMenuItemElement); // Generate user menu page
     } else {
