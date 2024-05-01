@@ -5,14 +5,14 @@ $(() => {
       method: 'GET',
       url: '/api/users'
     })
-    .done((response) => {
-      const $usersList = $('#users');
-      $usersList.empty();
+      .done((response) => {
+        const $usersList = $('#users');
+        $usersList.empty();
 
-      for(const user of response.users) {
-        $(`<li class="user">`).text(user.name).appendTo($usersList);
-      }
-    });
+        for (const user of response.users) {
+          $(`<li class="user">`).text(user.name).appendTo($usersList);
+        }
+      });
   });
 
   const userId = window.location.pathname.split('/').pop();
@@ -21,17 +21,16 @@ $(() => {
     method: 'GET',
     url: `/users/${userId}`
   })
-  .done((user) => {
-    console.log(user);
-    if (!user.is_owner) {
-    fetchMenuItems(createMenuItemElement); // Generate user menu page
-    } else {
-    fetchMenuItems(createMenuItemForm); // Generate Owner menu page
-    };
-  })
-  .fail((error) => {
-    console.error('Error fetching user:', error);
-  });
-
-  $(document).on('submit', '.menuItem', editMenuButton);
+    .done((user) => {
+      console.log(user);
+      if (!user.is_owner) {
+        getMenuItems(createMenuItemElement); // Generate user menu page
+      } else {
+        getMenuItems(createEditMenuItemForm); // Generate Owner menu page
+        createAddNewMenuItemForm();
+      }
+    })
+    .fail((error) => {
+      console.error('Error fetching user:', error);
+    });
 });
