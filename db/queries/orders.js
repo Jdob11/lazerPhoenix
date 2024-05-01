@@ -9,22 +9,22 @@ const fetchAllOrders = () => {
 };
 
 //fetch menu order by id
-const orderId = (orderId) => {
+const orderId = () => {
   const queryStr = `
   SELECT * FROM orders
   WHERE id = $1;
   `;
 
-  const queryParams = [ orderId ];
+  const queryParams = [menuItemId];
 
   return db.query(queryStr, queryParams)
-    .then((results) => {
-      return results.rows[0];
-    })
-    .catch((err) => {
-      console.log("error:", err);
-      throw err;
-    });
+  .then((results) => {
+    return results.rows[0];
+  })
+  .catch((err) => {
+    console.log("error:", err);
+    throw err;
+  });
 };
 
 //calculate the total cost of a order
@@ -41,7 +41,7 @@ const orderTotal = () => {
 
 //place a new order
 const placeOrder  = (order) => {
-  const queryStr = `INSERT INTO orders (id, user_id, time_ordered, total_cost, completed_at)
+  const queryStr = `INSER INTO orders (id, user_id, time_ordered, total_cost, completed_at)
                     VALUES ($1, 2$, 3$, $4, $5)
                     RETUNING;
                     `;
@@ -54,14 +54,14 @@ const placeOrder  = (order) => {
     order.completed_at
   ];
 
-  return db.query(queryStr, queryParams)
-    .then((results) => {
-      return results.rows[0];
-    })
-    .catch((err) => {
-      console.log("error: ", err);
-    });
-};
+  return pool.query(queryStr, queryParams)
+  .then((results) => {
+    return results.rows[0]
+  })
+  .catch((err) => {
+    console.log("error: ", err)
+  });
+}
 
 
 module.exports = {
@@ -69,4 +69,4 @@ module.exports = {
   orderId,
   orderTotal,
   placeOrder
-};
+}

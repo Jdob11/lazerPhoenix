@@ -12,4 +12,4 @@ const allOrderedItems = () => {
 module.exports = {
   allOrderedItems,
 
-};
+}

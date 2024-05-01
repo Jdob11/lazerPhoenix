@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
   const shoppingCartButton = document.querySelector('.shopping-cart-button');
+
   const cartOverlay = document.querySelector('.cartTab');
 
   function toggleCartOverlay(){

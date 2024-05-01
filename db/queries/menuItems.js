@@ -1,7 +1,7 @@
 const db = require('../connection');
 
 // get all menu items
-const getAllMenuItems = () => {
+const fetchAllMenuItems = () => {
   return db.query('SELECT * FROM menu_items;')
     .then(data => {
       console.log("data.rows", data.rows)
@@ -10,7 +10,7 @@ const getAllMenuItems = () => {
 };
 
 // add a new menu item
-const addNewMenuItem = (req, res) => {
+const addMenuItem = (req, res) => {
   const { itemImage, itemName, itemPrice, itemDescription } = req.body;
 
   const queryStr = `
@@ -30,7 +30,7 @@ const addNewMenuItem = (req, res) => {
       res.status(200).send('Menu item added successfully');
     }
   });
-};
+}
 
 const editMenuItem = (req, res) => {
   const { itemId, itemImage, itemName, itemPrice, itemDescription } = req.body;
@@ -57,31 +57,31 @@ const editMenuItem = (req, res) => {
       }
     }
   });
-};
+}
 
 
 //remove menu item
-const removeMenuItemById = (menuItemId) => {
+const removeMenuItem = (menuItemId) => {
   const queryStr = `
   DELETE FROM menu_items
   WHERE id = $1
   RETURNING *;
   `;
 
-  const queryParams = [menuItemId];
+  const queryParams = [menuItemId]
 
   return db.query(queryStr, queryParams)
-    .then((results) => {
-      return results.rows[0];
-    })
-    .catch((err) => {
-      console.log("error: ", err);
-      throw err;
-    });
+  .then((results) => {
+    return results.rows[0];
+  })
+  .catch((err) => {
+    console.log("error: ", err);
+    throw err;
+  });
 };
 
 //fetch menu item by id
-const getMenuItemById = (menuItemId) => {
+const menuItemId = (menuItemId) => {
   const queryStr = `
   SELECT * FROM menu_items
   WHERE id = $1;
@@ -90,20 +90,20 @@ const getMenuItemById = (menuItemId) => {
   const queryParams = [menuItemId];
 
   return db.query(queryStr, queryParams)
-    .then((results) => {
-      return results.rows[0];
-    })
-    .catch((err) => {
-      console.log("error:", err);
-      throw err;
-    });
+  .then((results) => {
+    return results.rows[0];
+  })
+  .catch((err) => {
+    console.log("error:", err);
+    throw err;
+  });
 };
 
 
 module.exports = {
-  getAllMenuItems,
-  addNewMenuItem,
-  removeMenuItemById,
-  getMenuItemById,
+  fetchAllMenuItems,
+  addMenuItem,
+  removeMenuItem,
+  menuItemId,
   editMenuItem
-};
+ };

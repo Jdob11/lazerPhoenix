@@ -3,14 +3,12 @@
     "commonjs": true,
     "es6": true,
     "node": true,
-    "mocha": true,
-    "browser": true
+    "mocha": true
   },
   "extends": "eslint:recommended",
   "globals": {
     "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly",
-    "$": true
+    "SharedArrayBuffer": "readonly"
   },
   "parserOptions": {
     "ecmaVersion": 2018
@@ -48,6 +46,5 @@
     "space-before-function-paren": [ "warn", { "anonymous": "never", "named": "never", "asyncArrow": "never" } ],
     "func-names": ["error", "never"],
     "quotes": "off"
-  },
-  "root": true
+  }
 }
