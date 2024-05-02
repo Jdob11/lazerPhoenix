@@ -69,25 +69,19 @@ const getMenuItems = (cb) => {
 };
 
 const addToCartButton = function() {
-        // Grab the product name from the menu item associated with the clicked order button
-        const menuItemName = $(this).attr('product_name');
-        console.log(menuItemName);
-        // Create an item object with the menu item's name
-        const item = { name: menuItemName };
-
-        // Add the item to the cart
-        addToCart(item);
-}
-
-const removeFromCartButton = function() {
-  // Grab the product name from the menu item associated with the clicked order button
   const menuItemName = $(this).attr('product_name');
   console.log(menuItemName);
+  addToCart(menuItemName);
+  renderCartItems();
+}
 
-  // Create an item object with the menu item's name
+
+const removeFromCartButton = function() {
+  const menuItemName = $(this).attr('product_name');
+  console.log(menuItemName);
   const item = { name: menuItemName };
-    // Add the item to the cart
   removeFromCart(item);
+  renderCartItems();
 }
 
 const editMenuItemButton = function(event) {
@@ -129,25 +123,34 @@ const addMenuItemButton = function(event) {
 
 function initializeCartCounter() {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  let cartLength = cart.length;
-  document.getElementById('cartCounter').textContent = cartLength;
+  let totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+  document.getElementById('cartCounter').textContent = totalQuantity;
 }
 
 // Function to add item to cart, template from Larry
-function addToCart(item) {
+function addToCart(itemName) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.push(item);
-  updateCartCounter(cart); // Update the cart counter after adding the item
+  const existingItemIndex = cart.findIndex(item => item.name === itemName);
+
+  if (existingItemIndex !== -1) {
+      cart[existingItemIndex].quantity++;
+  } else {
+      const newItem = { name: itemName, quantity: 1 };
+      cart.push(newItem);
+  }
+
   localStorage.setItem('cart', JSON.stringify(cart));
-  console.log("Item added to cart:", item);
+  updateCartCounter(cart);
+  console.log("Item added to cart:", itemName);
 }
+
 
 function removeFromCart(itemToRemove) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   const index = cart.findIndex(item => item.name === itemToRemove.name);
   if (index !== -1) {
     cart.splice(index, 1);
-    updateCartCounter(cart); // Update the cart counter after removing the item
+    updateCartCounter(cart);
     localStorage.setItem('cart', JSON.stringify(cart));
     console.log("Item removed from cart:", itemToRemove);
   } else {
@@ -155,9 +158,10 @@ function removeFromCart(itemToRemove) {
   }
 }
 
-function updateCartCounter(cart) {
-  let cartLength = cart.length;
-  document.getElementById('cartCounter').textContent = cartLength;
+function updateCartCounter() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+  $('#cartCounter').text(totalQuantity);
 }
 
 const getUserAndGenerateMenu = function(userId) {$.ajax({
