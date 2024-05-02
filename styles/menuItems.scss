@@ -43,21 +43,32 @@
   color: $menu-item-button-font-color;
   cursor: pointer;
   border-radius: 5px;
-  width: calc(50% - 5px);
+  width: 100%;
 }
 
 .orderButton {
+  margin-right: 3px;
   background-color: $order-item-button-color;
+  width: calc(50% - 1em);
 }
 
 .removeButton {
+  margin-left: 3px;
   background-color: $remove-item-button-color;
+  width: calc(50% - 1em);
+}
+
+.editMenuItemButton {
+  background-color: $edit-menu-item-button-color;
+}
+
+.addToMenuButton {
+  background-color: $add-to-menu-item-button-color;
 }
 
 .itemInfo {
   display: flex;
   justify-content: space-between;
 }
-
 
 
