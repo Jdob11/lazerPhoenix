@@ -24,14 +24,13 @@ $(() => {
   .done((user) => {
     console.log(user);
     if (!user.is_owner) {
-    fetchMenuItems(createMenuItemElement); // Generate user menu page
+    getMenuItems(createMenuItemElement); // Generate user menu page
     } else {
-    fetchMenuItems(createMenuItemForm); // Generate Owner menu page
+    getMenuItems(createEditMenuItemForm); // Generate Owner menu page
+    createAddNewMenuItemForm();
     };
   })
   .fail((error) => {
     console.error('Error fetching user:', error);
   });
-
-  $(document).on('submit', '.menuItem', editMenuButton);
 });
