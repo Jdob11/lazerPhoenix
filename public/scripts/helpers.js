@@ -24,7 +24,7 @@ const createMenuItemElement = (menuItemData) => {
   const $menuItemDescription = $('<p>').addClass('menuItemDescription').text(menuItemData.description);
 
   const $buttonContainer = $('<div>').addClass('itemInfo');
-  const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order').attr('product_name', menuItemData.name).attr('product_id', menuItemData.id);
+  const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order').attr('product_name', menuItemData.name).attr('product_id', menuItemData.id).attr('product_price', menuItemData.price);
   const $removeButton = $('<button>').attr('type', 'button').addClass('removeButton').text('Remove').attr('product_name', menuItemData.name);
 
 
@@ -71,8 +71,9 @@ const getMenuItems = (cb) => {
 const addToCartButton = function() {
   const menuItemName = $(this).attr('product_name');
   const menuItemid = $(this).attr('product_id');
+  const menuItemPrice = $(this).attr('product_price')
   console.log(menuItemName);
-  addToCart(menuItemName, menuItemid);
+  addToCart(menuItemName, menuItemid, menuItemPrice);
   renderCartItems();
 }
 
@@ -129,14 +130,14 @@ function initializeCartCounter() {
 }
 
 // Function to add item to cart, template from Larry
-function addToCart(itemName, menuItemid) {
+function addToCart(itemName, menuItemid, menuItemPrice) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   const existingItemIndex = cart.findIndex(item => item.name === itemName);
 
   if (existingItemIndex !== -1) {
       cart[existingItemIndex].quantity++;
   } else {
-      const newItem = { name: itemName, quantity: 1, menuItemid };
+      const newItem = { name: itemName, quantity: 1, menuItemid, menuItemPrice };
       cart.push(newItem);
   }
 

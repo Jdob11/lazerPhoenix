@@ -93,6 +93,7 @@
 
 .cartTab .listCart .item {
 display: grid;
+padding-top: 10px;
 grid-template-columns: 150px 140px 80px 1fr;
 gap: 10px;
 text-align:center;
@@ -104,6 +105,7 @@ overflow: hidden;
 
 .listCart .quantity span{
   display: inline-block;
+  padding-top: 5px;
   width: 25px;
   height: 25px;
   background-color: #eee;
