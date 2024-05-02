@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
   const shoppingCartButton = document.querySelector('.shopping-cart-button');
-
+  const closeButton = document.querySelector('.close');
   const cartOverlay = document.querySelector('.cartTab');
 
   function toggleCartOverlay(){
@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
   // Add event listener to the shopping cart button to trigger toggleCartOverlay
   shoppingCartButton.addEventListener('click', toggleCartOverlay);
+  closeButton.addEventListener('click', toggleCartOverlay);
 
   // Function to retrieve cart data from local storage
   function getCartData() {
