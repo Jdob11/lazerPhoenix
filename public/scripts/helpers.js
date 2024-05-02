@@ -117,9 +117,10 @@ const addMenuItemButton = function(event) {
       console.log(response);
       if (response.message) {
         alert(response.message);
-        getMenuItems(createEditMenuItemForm);
-        createAddMenuNewItemForm();
       }
+      $('#menuContainer').empty();
+      getMenuItems(createEditMenuItemForm); // Generate Owner menu page
+      createAddNewMenuItemForm();
     })
     .fail(function() {
       console.error('Error adding menu item');
@@ -158,4 +159,23 @@ function updateCartCounter(cart) {
   let cartLength = cart.length;
   document.getElementById('cartCounter').textContent = cartLength;
 }
+
+const getUserAndGenerateMenu = function(userId) {$.ajax({
+  method: 'GET',
+  url: `/users/${userId}`
+})
+.done((user) => {
+  console.log(user);
+  if (!user.is_owner) {
+  getMenuItems(createMenuItemElement); // Generate user menu page
+  } else {
+  getMenuItems(createEditMenuItemForm); // Generate Owner menu page
+  createAddNewMenuItemForm();
+  };
+  initializeCartCounter();
+})
+.fail((error) => {
+  console.error('Error fetching user:', error);
+});
+};
 

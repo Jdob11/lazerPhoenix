@@ -90,3 +90,32 @@
 .cartTab .btn button.close:active {
   background-color: #333;
 }
+
+.cartTab .listCart .item img{
+  width: 100%;
+  padding-left: 20px;
+}
+
+.cartTab .listCart .item {
+display: grid;
+grid-template-columns: 70px 150px 50px 1fr;
+gap: 10px;
+text-align:center;
+align-items: center;
+}
+
+.listCart .quantity span{
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-color: #eee;
+  color: #555;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.listCart .quantity span:nth-child(2){
+  background-color: transparent;
+  color: #eee;
+
+}
