@@ -1,5 +1,5 @@
-const createMenuItemForm = (menuItemData) => {
-  const $form = $('<form>').addClass('menuItem').attr('action', '/users/editMenuItem').attr('method', 'POST');
+const createEditMenuItemForm = (menuItemData) => {
+  const $form = $('<form>').addClass('menuItem', 'menuItemForm');
   const $itemIdInput = $('<input>').attr('type', 'hidden').attr('name', 'itemId').val(menuItemData.id);
   const $itemImageInput = $('<input>').attr('type', 'text').attr('id', 'itemImage').attr('name', 'itemImage').attr('placeholder', 'Image URL').val(menuItemData.image_url || '');
   const $inputRow = $('<div>').addClass('inputRow');
@@ -10,6 +10,7 @@ const createMenuItemForm = (menuItemData) => {
 
   $inputRow.append($itemNameInput, $itemPriceInput);
   $form.append($itemIdInput, $itemImageInput, $inputRow, $itemDescriptionTextarea, $editMenuItemButton);
+  $form.on('submit', editMenuItemButton)
   return $form;
 };
 
@@ -35,9 +36,28 @@ const createMenuItemElement = (menuItemData) => {
   return $menuItem;
 };
 
-const fetchMenuItems = (cb) => {
+const createAddNewMenuItemForm = () => {
+  const $form = $('<form>').addClass('menuItem', 'addMenuNewItemForm');
+
+  const $itemImageInput = $('<input>').attr('type', 'text').attr('id', 'itemImage').attr('name', 'itemImage').attr('placeholder', 'Image URL');
+  const $inputRow = $('<div>').addClass('inputRow');
+  const $itemNameInput = $('<input>').attr('type', 'text').attr('id', 'itemName').attr('name', 'itemName').attr('placeholder', 'Name');
+  const $itemPriceInput = $('<input>').attr('type', 'text').attr('id', 'itemPrice').attr('name', 'itemPrice').attr('placeholder', 'Price');
+  const $itemDescriptionTextarea = $('<textarea>').attr('id', 'itemDescription').attr('name', 'itemDescription').attr('placeholder', 'Description');
+
+  const $addToMenuButton = $('<button>').attr('type', 'submit').addClass('addToMenuButton').text('Add to Menu');
+
+  $inputRow.append($itemNameInput, $itemPriceInput);
+
+  $form.append($itemImageInput, $inputRow, $itemDescriptionTextarea, $addToMenuButton);
+  $form.on('submit', addMenuItemButton);
+
+  $('#menuContainer').append($form);
+};
+
+const getMenuItems = (cb) => {
   $.get('/users/menuItems', function(data) {
-    data.sort((a, b) => a.id - b.id);
+    data.sort((a, b) => b.id - a.id);
     data.forEach(function(menuItem) {
       const $menuItem = cb(menuItem);
       $('#menuContainer').prepend($menuItem);
@@ -70,56 +90,72 @@ const removeFromCartButton = function() {
   removeFromCart(item);
 }
 
-const editMenuButton = function(event) {
+const editMenuItemButton = function(event) {
   event.preventDefault();
 
     const formData = $(this).serialize();
+  $.post('/users/editMenuItem', formData)
+    .done(function(response) {
+      alert('Item Edited Successfully');
+      console.log(response);
+      if (response.message) {
+        alert(response.message);
+      }
+    })
+    .fail(function() {
+      console.error('Error editing menu item');
+    });
+};
 
-  $.post('/users/editMenuItem', formData, function(response) {
-    console.log(response);
-  }).fail(function() {
-    console.error('Error editing menu item');
-  });
+const addMenuItemButton = function(event) {
+  event.preventDefault();
+
+  const formData = $(this).serialize();
+  $.post('/users/addNewMenuItem', formData)
+    .done(function(response) {
+      alert('Item Added Successfully');
+      console.log(response);
+      if (response.message) {
+        alert(response.message);
+        getMenuItems(createEditMenuItemForm);
+        createAddMenuNewItemForm();
+      }
+    })
+    .fail(function() {
+      console.error('Error adding menu item');
+    });
+};
+
+function initializeCartCounter() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let cartLength = cart.length;
+  document.getElementById('cartCounter').textContent = cartLength;
 }
-
-//   $.post('/users/editMenuItem', formData)
-//     .done(function(response) {
-//       alert('Item Edited Successfully');
-//       console.log(response);
-//       if (response.message) {
-//         alert(response.message);
-//       }
-//     })
-//     .fail(function() {
-//       console.error('Error editing menu item');
-//     });
-// };
 
 // Function to add item to cart, template from Larry
 function addToCart(item) {
-  // Assuming you have a 'cart' array stored in the session or local storage
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   cart.push(item);
-  console.log('cart: ', cart);
-  let cartLength = cart.length;
-  document.getElementById('cartCounter').textContent = cartLength;
+  updateCartCounter(cart); // Update the cart counter after adding the item
   localStorage.setItem('cart', JSON.stringify(cart));
-  console.log("Item added to cart:", cart);
+  console.log("Item added to cart:", item);
 }
 
 function removeFromCart(itemToRemove) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  console.log("Current cart contents:", cart);
-  console.log("Item name to remove:", itemToRemove.name);
   const index = cart.findIndex(item => item.name === itemToRemove.name);
   if (index !== -1) {
     cart.splice(index, 1);
-    const cartLength = cart.length;
-    document.getElementById('cartCounter').textContent = cartLength;
+    updateCartCounter(cart); // Update the cart counter after removing the item
     localStorage.setItem('cart', JSON.stringify(cart));
     console.log("Item removed from cart:", itemToRemove);
   } else {
     console.log("Item not found in cart:", itemToRemove);
   }
+}
+
+function updateCartCounter(cart) {
+  let cartLength = cart.length;
+  document.getElementById('cartCounter').textContent = cartLength;
 }
 
