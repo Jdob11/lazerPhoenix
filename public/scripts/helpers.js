@@ -144,19 +144,25 @@ function addToCart(itemName) {
   console.log("Item added to cart:", itemName);
 }
 
-
 function removeFromCart(itemToRemove) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   const index = cart.findIndex(item => item.name === itemToRemove.name);
   if (index !== -1) {
-    cart.splice(index, 1);
+    if (cart[index].quantity > 1) {
+      cart[index].quantity--;
+    } else {
+      cart.splice(index, 1);
+    }
     updateCartCounter(cart);
     localStorage.setItem('cart', JSON.stringify(cart));
     console.log("Item removed from cart:", itemToRemove);
   } else {
     console.log("Item not found in cart:", itemToRemove);
+    
   }
 }
+
+
 
 function updateCartCounter() {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -207,3 +213,4 @@ function renderCartItems() {
     $listCart.append($item);
   });
 }
+
