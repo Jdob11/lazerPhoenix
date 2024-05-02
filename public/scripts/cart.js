@@ -43,3 +43,19 @@ $('.listCart').on('click', '.plus', function() {
   addToCart(itemName);
   renderCartItems();
 });
+
+$('.cartTab').on('click', ' .submitOrder', function() {
+  console.log("order button clicked");
+  const cart = JSON.parse(localStorage.getItem('cart'));
+    console.log(cart,"cart grab");
+    $.post("/users/order", {cart})
+      .done(() => {
+        console.log("order placed");
+
+      })
+      .fail(() => {
+        console.log("order failed");
+      })
+
+
+});

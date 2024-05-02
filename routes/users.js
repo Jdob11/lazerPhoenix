@@ -40,6 +40,15 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.post('/order', async (req, res) => {
+  console.log(req.body);
+  const cart = req.body.cart;
+  const userId = 2;
+  db.query(`INSERT INTO orders (user_id) VALUES (${userId}) RETURNING id`)
+  // .then() => ;
+
+});
+
 router.post('/addNewMenuItem', addNewMenuItem);
 
 router.post('/editMenuItem', editMenuItem);
