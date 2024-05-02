@@ -126,31 +126,36 @@ const addMenuItemButton = function(event) {
     });
 };
 
-// Function to add item to cart, template from Larry
-function addToCart(item) {
-  // Assuming you have a 'cart' array stored in the session or local storage
+function initializeCartCounter() {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.push(item);
-  console.log('cart: ', cart);
   let cartLength = cart.length;
   document.getElementById('cartCounter').textContent = cartLength;
+}
+
+// Function to add item to cart, template from Larry
+function addToCart(item) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.push(item);
+  updateCartCounter(cart); // Update the cart counter after adding the item
   localStorage.setItem('cart', JSON.stringify(cart));
-  console.log("Item added to cart:", cart);
+  console.log("Item added to cart:", item);
 }
 
 function removeFromCart(itemToRemove) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  console.log("Current cart contents:", cart);
-  console.log("Item name to remove:", itemToRemove.name);
   const index = cart.findIndex(item => item.name === itemToRemove.name);
   if (index !== -1) {
     cart.splice(index, 1);
-    const cartLength = cart.length;
-    document.getElementById('cartCounter').textContent = cartLength;
+    updateCartCounter(cart); // Update the cart counter after removing the item
     localStorage.setItem('cart', JSON.stringify(cart));
     console.log("Item removed from cart:", itemToRemove);
   } else {
     console.log("Item not found in cart:", itemToRemove);
   }
+}
+
+function updateCartCounter(cart) {
+  let cartLength = cart.length;
+  document.getElementById('cartCounter').textContent = cartLength;
 }
 

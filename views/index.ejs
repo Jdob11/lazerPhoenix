@@ -42,12 +42,14 @@
 
    <div id="menuContainer" class="menuItems">
   </div>
-  <button class="shopping-cart-button">
-    <div class="cart-icon-container">
-      <i class="fa-solid fa-cart-shopping"></i>
-      <div id="cartCounter"></div>
-    </div>
-  </button>
+  <% if (typeof user === 'undefined' || !user.is_owner) { %>
+    <button class="shopping-cart-button">
+      <div class="cart-icon-container">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <div id="cartCounter"></div>
+      </div>
+    </button>
+  <% } %>
 
   <div class = "cartTab"></div>
     <h1>Your Cart</h1>

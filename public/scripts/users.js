@@ -29,6 +29,7 @@ $(() => {
     getMenuItems(createEditMenuItemForm); // Generate Owner menu page
     createAddNewMenuItemForm();
     };
+    initializeCartCounter();
   })
   .fail((error) => {
     console.error('Error fetching user:', error);
