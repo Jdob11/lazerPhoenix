@@ -179,3 +179,27 @@ const getUserAndGenerateMenu = function(userId) {$.ajax({
 });
 };
 
+
+function renderCartItems() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const $listCart = $('.listCart');
+  $listCart.empty();
+
+  cart.forEach(item => {
+    const $item = $('<div class="item"></div>');
+
+    const $name = $('<div class="name"></div>').text(item.name);
+    $item.append($name);
+
+    const $totalPrice = $('<div class="totalPrice"></div>').text('$' + item.price);
+    $item.append($totalPrice);
+
+    const $quantity = $('<div class="quantity"></div>');
+    $quantity.append('<span class="minus"><</span>');
+    $quantity.append(`<span class="quant">${item.quantity}</span>`);
+    $quantity.append('<span class="plus">></span>');
+    $item.append($quantity);
+
+    $listCart.append($item);
+  });
+}
