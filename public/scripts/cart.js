@@ -20,9 +20,10 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   // Add event listener to the shopping cart button to trigger toggleCartOverlay
+  if (shoppingCartButton !== null) {
   shoppingCartButton.addEventListener('click', toggleCartOverlay);
   closeButton.addEventListener('click', toggleCartOverlay);
-
+  }
   // Function to retrieve cart data from local storage
   function getCartData() {
     return JSON.parse(localStorage.getItem('cart')) || [];

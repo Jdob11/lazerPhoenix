@@ -181,11 +181,11 @@ const getUserAndGenerateMenu = function(userId) {
   console.log(user);
   if (!user.is_owner) {
   getMenuItems(createMenuItemElement); // Generate user menu page
+  initializeCartCounter();
   } else {
   getMenuItems(createEditMenuItemForm); // Generate Owner menu page
   createAddNewMenuItemForm();
   };
-  initializeCartCounter();
 })
 .fail((error) => {
   console.error('Error fetching user:', error);
@@ -216,4 +216,5 @@ function renderCartItems() {
     $listCart.append($item);
   });
 }
+
 
