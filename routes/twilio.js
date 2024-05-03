@@ -1,4 +1,4 @@
-const db = require('../../db/connection');
+const db = require('../db/connection');
 const { Pool } = require('pg');
 const twilio = require('twilio');
 require('dotenv').config();

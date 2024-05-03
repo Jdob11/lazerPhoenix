@@ -1,5 +1,3 @@
- //add sendcompletedsms later
-// const { sendOrderReceivedSMS } = require('./path/to/twilio.js')
 
 document.addEventListener("DOMContentLoaded", function(){
   const shoppingCartButton = document.querySelector('.shopping-cart-button');
@@ -61,9 +59,9 @@ $('.cartTab').on('click', ' .submitOrder', function() {
       .done(() => { //Why doesn't this promise ever finish?
         console.log("order placed");
 
-        const phoneNumber = '+17807295721';
-        sendOrderReceivedSMS(phoneNumber);
-        console.log("Order confirmation to:", phoneNumber); //test
+        // const phoneNumber = '+17807295721';
+        // sendOrderReceivedSMS(phoneNumber);
+        // console.log("Order confirmation to:", phoneNumber); //test
 
       })
       .fail(() => {
