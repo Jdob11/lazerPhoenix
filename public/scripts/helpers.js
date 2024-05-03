@@ -25,14 +25,14 @@ const createMenuItemElement = (menuItemData) => {
 
   const $buttonContainer = $('<div>').addClass('itemInfo');
   const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order').attr('product_name', menuItemData.name).attr('product_id', menuItemData.id).attr('product_price', menuItemData.price);
-  const $removeButton = $('<button>').attr('type', 'button').addClass('removeButton').text('Remove').attr('product_name', menuItemData.name);
+  // const $removeButton = $('<button>').attr('type', 'button').addClass('removeButton').text('Remove').attr('product_name', menuItemData.name);
 
 
   $itemInfo.append($menuItemName, $menuItemPrice);
-  $buttonContainer.append($orderButton, $removeButton);
+  $buttonContainer.append($orderButton, /*$removeButton*/);
   $menuItem.append($img, $itemInfo, $menuItemDescription, $buttonContainer);
   $orderButton.on('click', addToCartButton);
-  $removeButton.on('click', removeFromCartButton);
+  // $removeButton.on('click', removeFromCartButton);
   return $menuItem;
 };
 
