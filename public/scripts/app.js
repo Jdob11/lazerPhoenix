@@ -3,6 +3,7 @@ const userId = window.location.pathname.split('/').pop();
 
 $('.navbar').on('click', '#menuView', (event) => {
   event.preventDefault();
+  $('#menuContainer').empty();
   getUserAndGenerateMenu(userId);
 });
 
