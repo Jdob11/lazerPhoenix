@@ -46,6 +46,14 @@
   z-index: 998;
 }
 
+.cartTab .totalCost {
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  color: #fff; /* Adjust color as needed */
+}
+
 .cartTab.open {
   display: grid;
 }
@@ -66,6 +74,8 @@
   border: none;
   font-weight: 500;
   cursor: pointer;
+  padding: 20px 20px; /* Adjust padding as needed */
+  font-size: 16px;
 }
 
 .cartTab .btn .close{

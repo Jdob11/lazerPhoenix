@@ -194,16 +194,25 @@ const getUserAndGenerateMenu = function(userId) {
 
 function renderCartItems() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const totalCost = cart.reduce((total, item) => {
+    const itemCost = parseInt(item.menuItemPrice) / 100 * parseInt(item.quantity);
+    return total + itemCost;
+  }, 0);
+
+  // Update total cost in the cart tab
+  $('.cartTab .totalCost').text('Total Cost: $' + totalCost.toFixed(2));
+
   const $listCart = $('.listCart');
   $listCart.empty();
 
   cart.forEach(item => {
+    const priceInDollars = (item.menuItemPrice / 100).toFixed(2);
     const $item = $('<div class="item"></div>');
 
     const $name = $('<div class="name"></div>').text(item.name);
     $item.append($name);
 
-    const $totalPrice = $('<div class="totalPrice"></div>').text('$' + item.price);
+    const $totalPrice = $('<div class="totalPrice"></div>').text('$' + priceInDollars);
     $item.append($totalPrice);
 
     const $quantity = $('<div class="quantity"></div>');
