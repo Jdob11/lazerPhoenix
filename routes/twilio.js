@@ -12,7 +12,7 @@ const client = require('twilio')(accountSid, authToken);
 const sendOrderReceivedSMS = (phoneNumber) => {
     client.messages
         .create({
-            body: "Thank you for ordering! Your order has been received and is being processed.",
+            body: "Thank you for ordering at LazerPhoenix! Your order has been received and is being processed. We will send you another text when it's ready for pickup!",
             from: '+14256107880',
             to: phoneNumber // use client's ph # here from DB
         })
@@ -30,9 +30,5 @@ const sendOrderCompletedSMS = (phoneNumber) => {
         .then(message => console.log('Order completed SMS sent:', message.sid))
         .catch(error => console.error('Error sending order completed SMS:', error));
 };
-
-// //test
-// const phoneNumber = '+17807295721';
-// sendOrderReceivedSMS(phoneNumber);
 
 module.exports = { db, sendOrderReceivedSMS };
