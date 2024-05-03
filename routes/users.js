@@ -40,6 +40,36 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.post('/order', async (req, res) => {
+  console.log(req.body);
+  const cart = req.body.cart;
+  const userId = 2;
+  const totalCost = cart.reduce((total, item) => {
+    const itemCost = parseInt(item.menuItemPrice) * parseInt(item.quantity);
+    return total + itemCost;
+}, 0);
+  db.query('INSERT INTO orders (user_id, total_cost) VALUES ($1, $2) RETURNING id;', [userId, totalCost])
+  .then((res) => res.rows[0].id)
+  .then((orderId) => {
+    const promises = [];
+    for (const cartItem of cart) {
+      const promise = db.query('INSERT INTO order_items (order_id, menu_item_id, quantity) VALUES ($1, $2, $3);', [orderId, cartItem.menuItemId, cartItem.quantity]);
+      promises.push(promise);
+    }
+
+    return Promise.all(promises);
+  })
+  .then(() => {
+    res.status(200).json({message: "order placed succesfully"})
+    // all menu items have been inserted into the db
+    // call twilio to text the customer
+    // respond to the browser to complete the AJAX request
+  })
+  .catch((error) => {
+    console.log('error placing order:', error)
+  })
+});
+
 router.post('/addNewMenuItem', addNewMenuItem);
 
 router.post('/editMenuItem', editMenuItem);

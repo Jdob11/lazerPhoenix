@@ -24,7 +24,7 @@ const createMenuItemElement = (menuItemData) => {
   const $menuItemDescription = $('<p>').addClass('menuItemDescription').text(menuItemData.description);
 
   const $buttonContainer = $('<div>').addClass('itemInfo');
-  const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order').attr('product_name', menuItemData.name);
+  const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order').attr('product_name', menuItemData.name).attr('product_id', menuItemData.id).attr('product_price', menuItemData.price);
   const $removeButton = $('<button>').attr('type', 'button').addClass('removeButton').text('Remove').attr('product_name', menuItemData.name);
 
 
@@ -69,25 +69,21 @@ const getMenuItems = (cb) => {
 };
 
 const addToCartButton = function() {
-        // Grab the product name from the menu item associated with the clicked order button
-        const menuItemName = $(this).attr('product_name');
-        console.log(menuItemName);
-        // Create an item object with the menu item's name
-        const item = { name: menuItemName };
-
-        // Add the item to the cart
-        addToCart(item);
+  const menuItemName = $(this).attr('product_name');
+  const menuItemId = $(this).attr('product_id');
+  const menuItemPrice = $(this).attr('product_price')
+  console.log(menuItemName);
+  addToCart(menuItemName, menuItemId, menuItemPrice);
+  renderCartItems();
 }
 
+
 const removeFromCartButton = function() {
-  // Grab the product name from the menu item associated with the clicked order button
   const menuItemName = $(this).attr('product_name');
   console.log(menuItemName);
-
-  // Create an item object with the menu item's name
   const item = { name: menuItemName };
-    // Add the item to the cart
   removeFromCart(item);
+  renderCartItems();
 }
 
 const editMenuItemButton = function(event) {
@@ -129,38 +125,55 @@ const addMenuItemButton = function(event) {
 
 function initializeCartCounter() {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  let cartLength = cart.length;
-  document.getElementById('cartCounter').textContent = cartLength;
+  let totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+  document.getElementById('cartCounter').textContent = totalQuantity;
 }
 
 // Function to add item to cart, template from Larry
-function addToCart(item) {
+function addToCart(itemName, menuItemId, menuItemPrice) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.push(item);
-  updateCartCounter(cart); // Update the cart counter after adding the item
+  const existingItemIndex = cart.findIndex(item => item.name === itemName);
+
+  if (existingItemIndex !== -1) {
+      cart[existingItemIndex].quantity++;
+  } else {
+      const newItem = { name: itemName, quantity: 1, menuItemId, menuItemPrice };
+      cart.push(newItem);
+  }
+
   localStorage.setItem('cart', JSON.stringify(cart));
-  console.log("Item added to cart:", item);
+  updateCartCounter(cart);
+  console.log("Item added to cart:", itemName);
 }
 
 function removeFromCart(itemToRemove) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   const index = cart.findIndex(item => item.name === itemToRemove.name);
   if (index !== -1) {
-    cart.splice(index, 1);
-    updateCartCounter(cart); // Update the cart counter after removing the item
+    if (cart[index].quantity > 1) {
+      cart[index].quantity--;
+    } else {
+      cart.splice(index, 1);
+    }
+    updateCartCounter(cart);
     localStorage.setItem('cart', JSON.stringify(cart));
     console.log("Item removed from cart:", itemToRemove);
   } else {
     console.log("Item not found in cart:", itemToRemove);
+
   }
 }
 
-function updateCartCounter(cart) {
-  let cartLength = cart.length;
-  document.getElementById('cartCounter').textContent = cartLength;
+
+
+function updateCartCounter() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+  $('#cartCounter').text(totalQuantity);
 }
 
-const getUserAndGenerateMenu = function(userId) {$.ajax({
+const getUserAndGenerateMenu = function(userId) {
+  $.ajax({
   method: 'GET',
   url: `/users/${userId}`
 })
@@ -178,4 +191,29 @@ const getUserAndGenerateMenu = function(userId) {$.ajax({
   console.error('Error fetching user:', error);
 });
 };
+
+
+function renderCartItems() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const $listCart = $('.listCart');
+  $listCart.empty();
+
+  cart.forEach(item => {
+    const $item = $('<div class="item"></div>');
+
+    const $name = $('<div class="name"></div>').text(item.name);
+    $item.append($name);
+
+    const $totalPrice = $('<div class="totalPrice"></div>').text('$' + item.price);
+    $item.append($totalPrice);
+
+    const $quantity = $('<div class="quantity"></div>');
+    $quantity.append('<span class="minus"><</span>');
+    $quantity.append(`<span class="quant">${item.quantity}</span>`);
+    $quantity.append('<span class="plus">></span>');
+    $item.append($quantity);
+
+    $listCart.append($item);
+  });
+}
 

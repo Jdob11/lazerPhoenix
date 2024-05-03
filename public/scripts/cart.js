@@ -28,3 +28,36 @@ document.addEventListener("DOMContentLoaded", function(){
     return JSON.parse(localStorage.getItem('cart')) || [];
   }
 });
+
+
+$('.listCart').on('click', '.minus', function() {
+  const itemName = $(this).closest('.item').find('.name').text();
+  const item = { name: itemName };
+  removeFromCart(item);
+  renderCartItems();
+});
+
+
+$('.listCart').on('click', '.plus', function() {
+  const itemName = $(this).closest('.item').find('.name').text();
+  addToCart(itemName);
+  renderCartItems();
+});
+
+$('.cartTab').on('click', ' .submitOrder', function() {
+  console.log("order button clicked");
+  const cart = JSON.parse(localStorage.getItem('cart'));
+    console.log(cart,"cart grab");
+    localStorage.removeItem('cart');
+    renderCartItems();
+    updateCartCounter(cart);
+    $.post("/users/order", {cart})
+      .done(() => { //Why doesn't this promise ever finish?
+        console.log("order placed");
+      })
+      .fail(() => {
+        console.log("order failed");
+      })
+
+
+});
