@@ -178,7 +178,6 @@ const getUserAndGenerateMenu = function(userId) {
   url: `/users/${userId}`
 })
 .done((user) => {
-  console.log(user);
   if (!user.is_owner) {
   getMenuItems(createMenuItemElement); // Generate user menu page
   initializeCartCounter();
