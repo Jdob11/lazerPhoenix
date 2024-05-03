@@ -72,7 +72,7 @@ const addToCartButton = function() {
   const menuItemName = $(this).attr('product_name');
   const menuItemId = $(this).attr('product_id');
   const menuItemPrice = $(this).attr('product_price')
-  console.log(menuItemName);
+  // console.log(menuItemName);
   addToCart(menuItemName, menuItemId, menuItemPrice);
   renderCartItems();
 }
@@ -80,7 +80,7 @@ const addToCartButton = function() {
 
 const removeFromCartButton = function() {
   const menuItemName = $(this).attr('product_name');
-  console.log(menuItemName);
+  // console.log(menuItemName);
   const item = { name: menuItemName };
   removeFromCart(item);
   renderCartItems();
@@ -143,7 +143,7 @@ function addToCart(itemName, menuItemId, menuItemPrice) {
 
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartCounter(cart);
-  console.log("Item added to cart:", itemName);
+  // console.log("Item added to cart:", itemName);
 }
 
 function removeFromCart(itemToRemove) {
@@ -157,7 +157,7 @@ function removeFromCart(itemToRemove) {
     }
     updateCartCounter(cart);
     localStorage.setItem('cart', JSON.stringify(cart));
-    console.log("Item removed from cart:", itemToRemove);
+    // console.log("Item removed from cart:", itemToRemove);
   } else {
     console.log("Item not found in cart:", itemToRemove);
 
