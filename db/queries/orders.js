@@ -70,14 +70,11 @@ const getOrderInfo = () => {
   JOIN users ON users.id = user_id
   JOIN order_items ON orders.id = order_id
   JOIN menu_items ON menu_items.id = menu_item_id
-  WHERE orders.completed_at IS NULL
-  RETURNING *;
+  WHERE orders.completed_at IS NULL;
   `;
-
   return db.query(queryStr)
   .then((results) => {
-    console.log(results);
-    return results.rows[0];
+    return results.rows;
   })
   .catch((err) => {
     console.log("error:", err);

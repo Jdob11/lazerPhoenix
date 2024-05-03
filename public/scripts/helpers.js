@@ -55,6 +55,47 @@ const createAddNewMenuItemForm = () => {
   $('#menuContainer').append($form);
 };
 
+function createOrderElement(orderData) {
+  const $orderContainer = $('<div>').addClass('menuItem orderCard');
+
+  const $orderNumberDiv = $('<div>').addClass('orderNumberDiv');
+  const $orderNumber = $('<h4>').addClass('orderNumber').text('#' + orderData.order_id);
+  $orderNumberDiv.append($orderNumber);
+
+  const $userInfo = $('<div>').addClass('userInfo');
+  const $userName = $('<h3>').addClass('info').text(orderData.customer);
+  const $phoneNumber = $('<h3>').addClass('info').text(orderData.phone);
+  $userInfo.append($userName, $phoneNumber);
+
+  const $foodAndPrice = $('<div>').addClass('foodAndPrice');
+  const $foodItem = $('<p>').text(orderData.food_name);
+  const $price = $('<p>').text('$' + orderData.price.toFixed(2));
+  const $quantity = $('<p>').text('x ' + orderData.quantity);
+  $foodAndPrice.append($foodItem, $price, $quantity);
+
+  const $total = $('<div>').addClass('total');
+  const $totalCost = $('<h4>').text('$' + (orderData.price * orderData.quantity).toFixed(2));
+  $total.append($totalCost);
+
+  const $timeEstimate = $('<div>').addClass('timeEstimate');
+  const $estimateInput = $('<div>').addClass('estimateInput');
+  const $estimateLabel = $('<label>').attr('for', 'estimate').text('Ready in:');
+  const $estimateInputField = $('<input>').attr({type: 'number', id: 'estimate'});
+  const $estimateButton = $('<button>').addClass('estimateButton').text('Send Estimate');
+  $estimateInput.append($estimateLabel, $estimateInputField);
+  $timeEstimate.append($estimateInput, $estimateButton);
+
+  // Create complete order button element
+  const $completeOrderButton = $('<button>').addClass('completeOrderButton').text('Complete Order');
+
+  // Append all elements to main container
+  $orderContainer.append($orderNumberDiv, $userInfo, $foodAndPrice, $total, $timeEstimate, $completeOrderButton);
+
+  // Return the created HTML element
+  return $orderContainer;
+}
+
+
 const getMenuItems = (cb) => {
   $.get('/users/menuItems', function(data) {
     data.sort((a, b) => b.id - a.id);
@@ -68,13 +109,13 @@ const getMenuItems = (cb) => {
   });
 };
 
-const getOrderItems = (cb) => {
+const getOrders = (cb) => {
   $.get('/users/orderItems', function(data) {
-    // data.sort((a, b) => b.id - a.id);
-    // data.forEach(function(orderItem) {
-    //   const $orderItem = cb(orderItem);
-    //   $('#menuContainer').prepend($orderItem);
-    // });
+    data.sort((a, b) => b.id - a.id);
+    data.forEach(function(orderItem) {
+      const $orderItem = cb(orderItem);
+      $('#menuContainer').prepend($orderItem);
+    });
     console.log(data);
   })
   .fail(function() {
