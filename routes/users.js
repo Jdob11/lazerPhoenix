@@ -25,6 +25,15 @@ router.get('/menuItems', async (req, res) => {
   }
 });
 
+router.get('/orderItems', async (req, res) => {
+  try {
+    const orderItems = await getOrderInfo();
+    res.json(orderItems);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching order items' });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   const userId = req.params.id;
   try {

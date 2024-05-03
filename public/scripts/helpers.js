@@ -25,14 +25,14 @@ const createMenuItemElement = (menuItemData) => {
 
   const $buttonContainer = $('<div>').addClass('itemInfo');
   const $orderButton = $('<button>').attr('type', 'button').addClass('orderButton').text('Order').attr('product_name', menuItemData.name).attr('product_id', menuItemData.id).attr('product_price', menuItemData.price);
-  const $removeButton = $('<button>').attr('type', 'button').addClass('removeButton').text('Remove').attr('product_name', menuItemData.name);
+  // const $removeButton = $('<button>').attr('type', 'button').addClass('removeButton').text('Remove').attr('product_name', menuItemData.name);
 
 
   $itemInfo.append($menuItemName, $menuItemPrice);
-  $buttonContainer.append($orderButton, $removeButton);
+  $buttonContainer.append($orderButton, /*$removeButton*/);
   $menuItem.append($img, $itemInfo, $menuItemDescription, $buttonContainer);
   $orderButton.on('click', addToCartButton);
-  $removeButton.on('click', removeFromCartButton);
+  // $removeButton.on('click', removeFromCartButton);
   return $menuItem;
 };
 
@@ -68,11 +68,25 @@ const getMenuItems = (cb) => {
   });
 };
 
+const getOrderItems = (cb) => {
+  $.get('/users/orderItems', function(data) {
+    // data.sort((a, b) => b.id - a.id);
+    // data.forEach(function(orderItem) {
+    //   const $orderItem = cb(orderItem);
+    //   $('#menuContainer').prepend($orderItem);
+    // });
+    console.log(data);
+  })
+  .fail(function() {
+    console.error('Error fetching order');
+  });
+};
+
 const addToCartButton = function() {
   const menuItemName = $(this).attr('product_name');
   const menuItemId = $(this).attr('product_id');
   const menuItemPrice = $(this).attr('product_price')
-  console.log(menuItemName);
+  // console.log(menuItemName);
   addToCart(menuItemName, menuItemId, menuItemPrice);
   renderCartItems();
 }
@@ -80,7 +94,7 @@ const addToCartButton = function() {
 
 const removeFromCartButton = function() {
   const menuItemName = $(this).attr('product_name');
-  console.log(menuItemName);
+  // console.log(menuItemName);
   const item = { name: menuItemName };
   removeFromCart(item);
   renderCartItems();
@@ -143,7 +157,7 @@ function addToCart(itemName, menuItemId, menuItemPrice) {
 
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartCounter(cart);
-  console.log("Item added to cart:", itemName);
+  // console.log("Item added to cart:", itemName);
 }
 
 function removeFromCart(itemToRemove) {
@@ -157,7 +171,7 @@ function removeFromCart(itemToRemove) {
     }
     updateCartCounter(cart);
     localStorage.setItem('cart', JSON.stringify(cart));
-    console.log("Item removed from cart:", itemToRemove);
+    // console.log("Item removed from cart:", itemToRemove);
   } else {
     console.log("Item not found in cart:", itemToRemove);
 
@@ -178,14 +192,13 @@ const getUserAndGenerateMenu = function(userId) {
   url: `/users/${userId}`
 })
 .done((user) => {
-  console.log(user);
   if (!user.is_owner) {
   getMenuItems(createMenuItemElement); // Generate user menu page
+  initializeCartCounter();
   } else {
   getMenuItems(createEditMenuItemForm); // Generate Owner menu page
   createAddNewMenuItemForm();
   };
-  initializeCartCounter();
 })
 .fail((error) => {
   console.error('Error fetching user:', error);
@@ -195,16 +208,25 @@ const getUserAndGenerateMenu = function(userId) {
 
 function renderCartItems() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const totalCost = cart.reduce((total, item) => {
+    const itemCost = parseInt(item.menuItemPrice) / 100 * parseInt(item.quantity);
+    return total + itemCost;
+  }, 0);
+
+  // Update total cost in the cart tab
+  $('.cartTab .totalCost').text('Total Cost: $' + totalCost.toFixed(2));
+
   const $listCart = $('.listCart');
   $listCart.empty();
 
   cart.forEach(item => {
+    const priceInDollars = (item.menuItemPrice / 100).toFixed(2);
     const $item = $('<div class="item"></div>');
 
     const $name = $('<div class="name"></div>').text(item.name);
     $item.append($name);
 
-    const $totalPrice = $('<div class="totalPrice"></div>').text('$' + item.price);
+    const $totalPrice = $('<div class="totalPrice"></div>').text('$' + priceInDollars);
     $item.append($totalPrice);
 
     const $quantity = $('<div class="quantity"></div>');
@@ -216,4 +238,5 @@ function renderCartItems() {
     $listCart.append($item);
   });
 }
+
 
