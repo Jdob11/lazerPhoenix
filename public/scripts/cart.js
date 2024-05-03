@@ -34,8 +34,10 @@ document.addEventListener("DOMContentLoaded", function(){
 $('.listCart').on('click', '.minus', function() {
   const itemName = $(this).closest('.item').find('.name').text();
   const item = { name: itemName };
+  const cart = JSON.parse(localStorage.getItem('cart'));
   removeFromCart(item);
   renderCartItems();
+  updateCartCounter(cart);
 });
 
 
