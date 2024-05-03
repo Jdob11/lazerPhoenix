@@ -44,7 +44,11 @@ router.post('/order', async (req, res) => {
   console.log(req.body);
   const cart = req.body.cart;
   const userId = 2;
-  db.query('INSERT INTO orders (user_id) VALUES ($1) RETURNING id;', [userId])
+  const totalCost = cart.reduce((total, item) => {
+    const itemCost = parseInt(item.menuItemPrice) * parseInt(item.quantity);
+    return total + itemCost;
+}, 0);
+  db.query('INSERT INTO orders (user_id, total_cost) VALUES ($1, $2) RETURNING id;', [userId, totalCost])
   .then((res) => res.rows[0].id)
   .then((orderId) => {
     const promises = [];
