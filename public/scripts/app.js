@@ -9,4 +9,5 @@ $('.navbar').on('click', '#menuView', (event) => {
 $('.navbar').on('click', '#ordersView', (event) => {
   event.preventDefault();
   $('#menuContainer').empty();
+  getOrderItems();
 });

@@ -68,6 +68,20 @@ const getMenuItems = (cb) => {
   });
 };
 
+const getOrderItems = (cb) => {
+  $.get('/users/orderItems', function(data) {
+    // data.sort((a, b) => b.id - a.id);
+    // data.forEach(function(orderItem) {
+    //   const $orderItem = cb(orderItem);
+    //   $('#menuContainer').prepend($orderItem);
+    // });
+    console.log(data);
+  })
+  .fail(function() {
+    console.error('Error fetching order');
+  });
+};
+
 const addToCartButton = function() {
   const menuItemName = $(this).attr('product_name');
   const menuItemId = $(this).attr('product_id');

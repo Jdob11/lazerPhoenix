@@ -65,12 +65,12 @@ const placeOrder  = (order) => {
 
 const getOrderInfo = () => {
   const queryStr = `
-  SELECT orders.id AS order_id, orders.total_cost, users.name, order_items.menu_item_id, order_items.quantity
+  SELECT orders.id AS order_id, orders.total_cost, users.name AS customer, users.phone, menu_items.name AS food_name, menu_items.price, order_items.quantity
   FROM orders
   JOIN users ON users.id = user_id
   JOIN order_items ON orders.id = order_id
   JOIN menu_items ON menu_items.id = menu_item_id
-  WHERE orders.completed_at IS NOT NULL
+  WHERE orders.completed_at IS NULL
   RETURNING *;
   `;
 
