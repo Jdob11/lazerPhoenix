@@ -70,10 +70,10 @@ const getMenuItems = (cb) => {
 
 const addToCartButton = function() {
   const menuItemName = $(this).attr('product_name');
-  const menuItemid = $(this).attr('product_id');
+  const menuItemId = $(this).attr('product_id');
   const menuItemPrice = $(this).attr('product_price')
   console.log(menuItemName);
-  addToCart(menuItemName, menuItemid, menuItemPrice);
+  addToCart(menuItemName, menuItemId, menuItemPrice);
   renderCartItems();
 }
 
@@ -130,14 +130,14 @@ function initializeCartCounter() {
 }
 
 // Function to add item to cart, template from Larry
-function addToCart(itemName, menuItemid, menuItemPrice) {
+function addToCart(itemName, menuItemId, menuItemPrice) {
   let cart = JSON.parse(localStorage.getItem('cart')) || [];
   const existingItemIndex = cart.findIndex(item => item.name === itemName);
 
   if (existingItemIndex !== -1) {
       cart[existingItemIndex].quantity++;
   } else {
-      const newItem = { name: itemName, quantity: 1, menuItemid, menuItemPrice };
+      const newItem = { name: itemName, quantity: 1, menuItemId, menuItemPrice };
       cart.push(newItem);
   }
 
@@ -172,7 +172,8 @@ function updateCartCounter() {
   $('#cartCounter').text(totalQuantity);
 }
 
-const getUserAndGenerateMenu = function(userId) {$.ajax({
+const getUserAndGenerateMenu = function(userId) {
+  $.ajax({
   method: 'GET',
   url: `/users/${userId}`
 })

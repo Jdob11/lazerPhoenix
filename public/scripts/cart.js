@@ -48,10 +48,12 @@ $('.cartTab').on('click', ' .submitOrder', function() {
   console.log("order button clicked");
   const cart = JSON.parse(localStorage.getItem('cart'));
     console.log(cart,"cart grab");
+    localStorage.removeItem('cart');
+    renderCartItems();
+    updateCartCounter(cart);
     $.post("/users/order", {cart})
-      .done(() => {
+      .done(() => { //Why doesn't this promise ever finish?
         console.log("order placed");
-
       })
       .fail(() => {
         console.log("order failed");
