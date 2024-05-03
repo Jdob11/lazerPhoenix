@@ -3,7 +3,7 @@
 .menuItems {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 90%;
   position: absolute;
   top: 22em;
@@ -12,9 +12,9 @@
 }
 
 .menuItem {
-  width: calc(33.33% - 3em);
+  width: calc(33.33% - 2em);
   height: auto;
-  margin: 10px;
+  margin: 1em;
   background-color: $menu-item-background-color;
   border-width: 10px;
   border-style: solid;
@@ -26,7 +26,7 @@
 }
 
 .menuItemDescription {
-  height: 1em;
+  height: 4em;
 }
 
 .menuItem img {
@@ -39,7 +39,6 @@
   margin-top: 10px;
   padding: 5px;
   border: none;
-  background-color: $menu-item-button-color;
   font-family: $menu-item-font;
   color: $menu-item-button-font-color;
   cursor: pointer;
@@ -47,10 +46,29 @@
   width: 100%;
 }
 
+.orderButton {
+  margin-right: 3px;
+  background-color: $order-item-button-color;
+  width: calc(50% - 1em);
+}
+
+.removeButton {
+  margin-left: 3px;
+  background-color: $remove-item-button-color;
+  width: calc(50% - 1em);
+}
+
+.editMenuItemButton {
+  background-color: $edit-menu-item-button-color;
+}
+
+.addToMenuButton {
+  background-color: $add-to-menu-item-button-color;
+}
+
 .itemInfo {
   display: flex;
   justify-content: space-between;
 }
-
 
 

@@ -8,7 +8,7 @@
 const express = require('express');
 const db = require('../db/connection');
 const router  = express.Router();
-const { addMenuItem, editMenuItem, fetchAllMenuItems } = require('../db/queries/menuItems')
+const { addNewMenuItem, editMenuItem, getAllMenuItems } = require('../db/queries/menuItems');
 const { getUserById } = require('../db/queries/users');
 
 router.get('/', (req, res) => {
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 
 router.get('/menuItems', async (req, res) => {
   try {
-    const menuItems = await fetchAllMenuItems();
+    const menuItems = await getAllMenuItems();
     res.json(menuItems);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching menu items' });
@@ -40,7 +40,37 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/addMenuItem', addMenuItem);
+router.post('/order', async (req, res) => {
+  console.log(req.body);
+  const cart = req.body.cart;
+  const userId = 2;
+  const totalCost = cart.reduce((total, item) => {
+    const itemCost = parseInt(item.menuItemPrice) * parseInt(item.quantity);
+    return total + itemCost;
+}, 0);
+  db.query('INSERT INTO orders (user_id, total_cost) VALUES ($1, $2) RETURNING id;', [userId, totalCost])
+  .then((res) => res.rows[0].id)
+  .then((orderId) => {
+    const promises = [];
+    for (const cartItem of cart) {
+      const promise = db.query('INSERT INTO order_items (order_id, menu_item_id, quantity) VALUES ($1, $2, $3);', [orderId, cartItem.menuItemId, cartItem.quantity]);
+      promises.push(promise);
+    }
+
+    return Promise.all(promises);
+  })
+  .then(() => {
+    res.status(200).json({message: "order placed succesfully"})
+    // all menu items have been inserted into the db
+    // call twilio to text the customer
+    // respond to the browser to complete the AJAX request
+  })
+  .catch((error) => {
+    console.log('error placing order:', error)
+  })
+});
+
+router.post('/addNewMenuItem', addNewMenuItem);
 
 router.post('/editMenuItem', editMenuItem);
 

@@ -29,10 +29,14 @@
   <script defer src="/scripts/users.js"></script>
   <script defer src="/scripts/helpers.js"></script>
   <script defer src="/scripts/cart.js"></script>
+  <script>
+    $(document).ready(function() {
+      renderCartItems();
+    });
+  </script>
   </head>
 
 <body>
-
 
   <%- include('partials/_navbar') %>
 
@@ -42,26 +46,44 @@
   </div>
 
    <div id="menuContainer" class="menuItems">
-    <!-- <form class="menuItem" action="/users/addMenuItem" method="POST">
-      <input type="text" id="itemImage" name="itemImage" placeholder="Image URL" />
-      <div class="inputRow">
-          <input type="text" id="itemName" name="itemName" placeholder="Name" />
-          <input type="text" id="itemPrice" name="itemPrice" placeholder="Price" />
+  </div>
+  <% if (typeof user === 'undefined' || !user.is_owner) { %>
+    <button class="shopping-cart-button">
+      <div class="cart-icon-container">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <div id="cartCounter"></div>
       </div>
-      <textarea id="itemDescription" name="itemDescription" placeholder="Description"></textarea>
-      <button type="submit" class="addToMenuButton">Add to Menu</button>
-    </form> -->
-  </div>
-  <button class="shopping-cart-button"><i class="fa-solid fa-cart-shopping"></i></button>
+    </button>
+  <% } %>
 
-  <!-- SHOPPING CART-->
+  <div class = "cartTab">
+    <h1>Your Cart</h1>
+    <div class ="listCart">
+      <div class="item">
+        <div class="image">
+          <img src="https://via.placeholder.com/150" alt="Placeholder Image">
 
-<div class = "cart-overlay"></div>
-<div class = "cart">
-  <div class ="cart-header">
-    <h2>Your Cart</h2>
+
+        </div>
+        <div class="name">
+          name
+        </div>
+        <div class="totalPrice">
+          $12
+      </div>
+        <div class="quantity">
+          <span class="minus"><</span>
+          <span class="quant">1</span>
+          <span class="plus">></span>
+
+        </div>
+      </div>
+    </div>
+    <div class="btn">
+      <button class="close">CLOSE</button>
+      <button class = "submitOrder" id="submitOrder">ORDER</button>
+    </div>
   </div>
-</div>
 
 </body>
 

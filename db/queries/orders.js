@@ -9,13 +9,13 @@ const fetchAllOrders = () => {
 };
 
 //fetch menu order by id
-const orderId = () => {
+const getOrderById = (orderId) => {
   const queryStr = `
   SELECT * FROM orders
   WHERE id = $1;
   `;
 
-  const queryParams = [menuItemId];
+  const queryParams = [orderId];
 
   return db.query(queryStr, queryParams)
   .then((results) => {
@@ -41,7 +41,7 @@ const orderTotal = () => {
 
 //place a new order
 const placeOrder  = (order) => {
-  const queryStr = `INSER INTO orders (id, user_id, time_ordered, total_cost, completed_at)
+  const queryStr = `INSERT INTO orders (id, user_id, time_ordered, total_cost, completed_at)
                     VALUES ($1, 2$, 3$, $4, $5)
                     RETUNING;
                     `;
@@ -54,7 +54,7 @@ const placeOrder  = (order) => {
     order.completed_at
   ];
 
-  return pool.query(queryStr, queryParams)
+  return db.query(queryStr, queryParams)
   .then((results) => {
     return results.rows[0]
   })
@@ -66,7 +66,7 @@ const placeOrder  = (order) => {
 
 module.exports = {
   fetchAllOrders,
-  orderId,
+  getOrderById,
   orderTotal,
   placeOrder
 }

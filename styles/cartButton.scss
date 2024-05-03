@@ -10,35 +10,112 @@
   border: none;
   cursor: pointer;
   position: fixed;
-  bottom: 1em;
+  bottom: 2em;
   right: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }
 
 /*cart */
 
-.cart-overlay {
-position: fixed;
-inset: 0;
-background: var(--color7);
-transition: var(--transition);
-opacity: 1;
+#cartCounter {
+  background-color: $cart-button-cart-color;
+  border-radius: 50%;
+  height: 1.4em;
+  width: 1.4em;
+  padding-top: 3px;
+  color: $cart-button-font-color;
+  font-size: 20px;
+  position: absolute;
+  top: 0; /* Adjust this value as needed */
+  right: 0; /* Adjust this value as needed */
 }
 
-.cart-overlay.show{
-visibility: visible;
-}
 
-.cart {
+.cartTab
+{
+  width: 400px;
+  background-color: #353432;
+  color: #eee;
   position: fixed;
-  inset-block: 0;
-  right: 0;
-  width: 100%;
-  max-width: 420px;
-  padding: 20px;
-  background: var(color8);
-  transition: var(--transition);
+  inset: 20px 0 0 auto;
+  display: none;
+  grid-template-rows: 70px 1fr 70px;
+  z-index: 998;
 }
 
-.cart {
-transform: none;
+.cartTab.open {
+  display: grid;
+}
+
+.cartTab h1{
+  padding: 20px;
+  margin: 0;
+  font-weight: 300;
+}
+
+.cartTab .btn{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cartTab .btn button{
+  background-color: #E8BC0E;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cartTab .btn .close{
+  background-color: #eee;
+}
+
+.cartTab .btn button:hover,
+.cartTab .btn button:focus {
+  background-color: #D4A419;
+  color: #fff;
+}
+
+.cartTab .btn button:active {
+  background-color: #C09316;
+}
+
+.cartTab .btn button.close:hover,
+.cartTab .btn button.close:focus {
+  background-color: #555;
+}
+
+.cartTab .btn button.close:active {
+  background-color: #333;
+}
+
+.cartTab .listCart .item {
+display: grid;
+padding-top: 10px;
+grid-template-columns: 150px 140px 80px 1fr;
+gap: 10px;
+text-align:center;
+align-items: center;
+overflow: hidden;
+
+}
+
+
+.listCart .quantity span{
+  display: inline-block;
+  padding-top: 5px;
+  width: 25px;
+  height: 25px;
+  background-color: #eee;
+  color: #555;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.listCart .quantity span:nth-child(2){
+  background-color: transparent;
+  color: #eee;
+
 }
