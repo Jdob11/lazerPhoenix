@@ -10,6 +10,7 @@ const db = require('../db/connection');
 const router  = express.Router();
 const { addNewMenuItem, editMenuItem, getAllMenuItems } = require('../db/queries/menuItems');
 const { getUserById } = require('../db/queries/users');
+const { getOrderInfo } = require('../db/queries/orders');
 
 router.get('/', (req, res) => {
   res.render('users');
