@@ -22,3 +22,4 @@ $('.navbar').on('click', '#ordersView', (event) => {
   // const $orderElement = createOrderElement(orderData);
   // $('#menuContainer').prepend($orderElement);
 });
+

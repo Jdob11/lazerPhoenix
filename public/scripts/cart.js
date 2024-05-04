@@ -62,5 +62,4 @@ $('.cartTab').on('click', ' .submitOrder', function() {
         console.log("order failed");
       })
 
-
 });

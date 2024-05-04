@@ -98,6 +98,21 @@ function createOrderElement(orderData, orderItems) {
   return $orderContainer;
 }
 
+document.addEventListener("DOMContentLoaded", function(){
+  $('.menuContainer').on('click', '.estimateButton', function() {
+    const phoneNumber = '+17807295721';
+    sendEstimateSMS(phoneNumber);
+    console.log("estimate SMS sent to:", phoneNumber);
+  });
+
+  $('.menuContainer').on('click', '.completeOrderButton', function() {
+    const phoneNumber = '+17807295721';
+    sendOrderCompletedSMS(phoneNumber);
+    console.log("order completed SMS sent to:", phoneNumber);
+  });
+});
+
+
 
 const getMenuItems = (cb) => {
   $.get('/users/menuItems', function(data) {
