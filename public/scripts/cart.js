@@ -53,6 +53,7 @@ $('.cartTab').on('click', ' .submitOrder', function() {
   // console.log("order button clicked");
   const cart = JSON.parse(localStorage.getItem('cart'));
     // console.log(cart,"cart grab");
+    alert('Order has been sent to TEAM LAZER PHOENIX BAR AND GRILL!!!')
     localStorage.removeItem('cart');
     renderCartItems();
     updateCartCounter(cart);

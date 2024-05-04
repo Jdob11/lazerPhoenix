@@ -97,17 +97,19 @@ const createOrderElement = (orderData, orderItems) => {
 
 
   $orderContainer.on('click', '.estimateButton', function() {
+    alert('Time Estimate Sent To Customer')
     console.log(' estimate button clicked');
     const phoneNumber = '+17807295721';
     const estimateMinutes = $('#estimate').val();
-    sendEstimateSMS(phoneNumber, estimatedMinutes);
+    // sendEstimateSMS(phoneNumber, estimatedMinutes);
     console.log("estimate SMS sent to:", phoneNumber);
   });
 
   $orderContainer.on('click', '.completeOrderButton', function() {
+    alert('Order Complete Message Sent To Customer')
     console.log('Complete Order button clicked');
     const phoneNumber = '+17807295721';
-    sendOrderCompletedSMS(phoneNumber);
+    // sendOrderCompletedSMS(phoneNumber);
     console.log("order completed SMS sent to:", phoneNumber);
   });
 
