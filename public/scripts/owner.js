@@ -18,15 +18,15 @@ const getOrders = (cb) => {
 
     console.log(data);
   })
-  .fail(function() {
-    console.error('Error fetching order');
-  });
+    .fail(function() {
+      console.error('Error fetching order');
+    });
 };
 
 const editMenuItemButton = function(event) {
   event.preventDefault();
 
-    const formData = $(this).serialize();
+  const formData = $(this).serialize();
   $.post('/users/editMenuItem', formData)
     .done(function(response) {
       alert('Item Edited Successfully');

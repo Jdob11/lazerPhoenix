@@ -10,7 +10,7 @@ const createEditMenuItemForm = (menuItemData) => {
 
   $inputRow.append($itemNameInput, $itemPriceInput);
   $form.append($itemIdInput, $itemImageInput, $inputRow, $itemDescriptionTextarea, $editMenuItemButton);
-  $form.on('submit', editMenuItemButton)
+  $form.on('submit', editMenuItemButton);
   return $form;
 };
 
@@ -110,7 +110,7 @@ const createOrderElement = (orderData, orderItems) => {
   });
 
   return $orderContainer;
-}
+};
 
 const getMenuItems = (cb) => {
   $.get('/users/menuItems', function(data) {
@@ -127,19 +127,19 @@ const getMenuItems = (cb) => {
 
 const getUserAndGenerateMenu = (userId) => {
   $.ajax({
-  method: 'GET',
-  url: `/users/${userId}`
-})
-.done((user) => {
-  if (!user.is_owner) {
-  getMenuItems(createMenuItemElement); // Generate user menu page
-  initializeCartCounter();
-  } else {
-  getMenuItems(createEditMenuItemForm); // Generate Owner menu page
-  createAddNewMenuItemForm();
-  };
-})
-.fail((error) => {
-  console.error('Error fetching user:', error);
-});
+    method: 'GET',
+    url: `/users/${userId}`
+  })
+    .done((user) => {
+      if (!user.is_owner) {
+        getMenuItems(createMenuItemElement); // Generate user menu page
+        initializeCartCounter();
+      } else {
+        getMenuItems(createEditMenuItemForm); // Generate Owner menu page
+        createAddNewMenuItemForm();
+      }
+    })
+    .fail((error) => {
+      console.error('Error fetching user:', error);
+    });
 };
