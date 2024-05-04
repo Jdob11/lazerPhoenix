@@ -1,4 +1,5 @@
 {
+  "root": true,
   "env": {
     "commonjs": true,
     "es6": true,
@@ -8,7 +9,10 @@
   "extends": "eslint:recommended",
   "globals": {
     "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+    "SharedArrayBuffer": "readonly",
+    "$": true,
+    "document": true,
+    "localStorage": true
   },
   "parserOptions": {
     "ecmaVersion": 2018
@@ -27,8 +31,9 @@
       "always"
     ],
     "no-var": "error",
+    "no-undef": "off",
     "no-console": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "func-call-spacing": [
       "error",
       "never"
