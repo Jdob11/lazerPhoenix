@@ -55,7 +55,7 @@ const createAddNewMenuItemForm = () => {
   $('#menuContainer').append($form);
 };
 
-function createOrderElement(orderData) {
+function createOrderElement(orderData, orderItems) {
   const $orderContainer = $('<div>').addClass('menuItem orderCard');
 
   const $orderNumberDiv = $('<div>').addClass('orderNumberDiv');
@@ -67,14 +67,19 @@ function createOrderElement(orderData) {
   const $phoneNumber = $('<h3>').addClass('info').text(orderData.phone);
   $userInfo.append($userName, $phoneNumber);
 
-  const $foodAndPrice = $('<div>').addClass('foodAndPrice');
-  const $foodItem = $('<p>').text(orderData.food_name);
-  const $price = $('<p>').text('$' + orderData.price.toFixed(2));
-  const $quantity = $('<p>').text('x ' + orderData.quantity);
-  $foodAndPrice.append($foodItem, $price, $quantity);
+  const $foodAndPriceContainer = $('<div>').addClass('foodAndPriceContainer');
+
+  orderItems.forEach(item => {
+    const $foodAndPrice = $('<div>').addClass('foodAndPrice');
+    const $foodItem = $('<p>').text(item.food_name);
+    const $priceAndQuantity = $('<p>').text('$ ' + (item.price / 100).toFixed(2) + ' x ' + item.quantity);
+    $foodAndPrice.append($foodItem, $priceAndQuantity);
+    $foodAndPriceContainer.append($foodAndPrice);
+  });
 
   const $total = $('<div>').addClass('total');
-  const $totalCost = $('<h4>').text('$' + (orderData.price * orderData.quantity).toFixed(2));
+  const totalPrice = orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0) / 100;
+  const $totalCost = $('<h4>').text('$' + totalPrice.toFixed(2));
   $total.append($totalCost);
 
   const $timeEstimate = $('<div>').addClass('timeEstimate');
@@ -82,16 +87,14 @@ function createOrderElement(orderData) {
   const $estimateLabel = $('<label>').attr('for', 'estimate').text('Ready in:');
   const $estimateInputField = $('<input>').attr({type: 'number', id: 'estimate'});
   const $estimateButton = $('<button>').addClass('estimateButton').text('Send Estimate');
+
   $estimateInput.append($estimateLabel, $estimateInputField);
   $timeEstimate.append($estimateInput, $estimateButton);
 
-  // Create complete order button element
   const $completeOrderButton = $('<button>').addClass('completeOrderButton').text('Complete Order');
 
-  // Append all elements to main container
-  $orderContainer.append($orderNumberDiv, $userInfo, $foodAndPrice, $total, $timeEstimate, $completeOrderButton);
+  $orderContainer.append($orderNumberDiv, $userInfo, $foodAndPriceContainer, $total, $timeEstimate, $completeOrderButton);
 
-  // Return the created HTML element
   return $orderContainer;
 }
 
@@ -111,11 +114,22 @@ const getMenuItems = (cb) => {
 
 const getOrders = (cb) => {
   $.get('/users/orderItems', function(data) {
-    data.sort((a, b) => b.id - a.id);
-    data.forEach(function(orderItem) {
-      const $orderItem = cb(orderItem);
-      $('#menuContainer').prepend($orderItem);
+    const orders = {};
+
+    data.forEach(orderItem => {
+      if (!orders[orderItem.order_id]) {
+        orders[orderItem.order_id] = [];
+      }
+      orders[orderItem.order_id].push(orderItem);
     });
+
+
+    Object.keys(orders).forEach(orderId => {
+      const orderData = orders[orderId][0];
+      const $orderItem = cb(orderData, orders[orderId]);
+      $('#menuContainer').append($orderItem);
+    });
+
     console.log(data);
   })
   .fail(function() {
