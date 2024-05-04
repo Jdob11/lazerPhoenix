@@ -1,5 +1,9 @@
 @use 'vars' as *;
 
+.orderCard p {
+  margin: 0;
+}
+
 .orderNumberDiv {
   display: flex;
   justify-content: flex-end;
