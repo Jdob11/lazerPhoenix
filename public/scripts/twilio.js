@@ -1,4 +1,4 @@
-const db = require('../db/connection');
+const db = require('../../db/connection');
 const { Pool } = require('pg');
 const twilio = require('twilio');
 require('dotenv').config();
@@ -42,4 +42,4 @@ const sendOrderCompletedSMS = (phoneNumber) => {
         .catch(error => console.error('Error sending order completed SMS:', error));
 };
 
-module.exports = { db, sendOrderReceivedSMS };
+module.exports = { db, sendOrderReceivedSMS, sendEstimateSMS, sendOrderCompletedSMS };

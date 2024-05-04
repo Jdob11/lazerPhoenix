@@ -12,7 +12,7 @@ const { addNewMenuItem, editMenuItem, getAllMenuItems } = require('../db/queries
 const { getUserById } = require('../db/queries/users');
 const { getOrderInfo } = require('../db/queries/orders');
 
-const { sendOrderReceivedSMS } = require('./twilio.js');
+const { sendOrderReceivedSMS } = require('../public/scripts/twilio.js');
 
 
 router.get('/', (req, res) => {
