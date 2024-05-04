@@ -1,8 +1,3 @@
-import('./twilio.js').then(({ sendEstimateSMS, sendOrderCompletedSMS }) => {
-}).catch(error => {
-  console.error('Error importing twilio.js:', error);
-});
-
 const createEditMenuItemForm = (menuItemData) => {
   const $form = $('<form>').addClass('menuItem', 'menuItemForm');
   const $itemIdInput = $('<input>').attr('type', 'hidden').attr('name', 'itemId').val(menuItemData.id);
@@ -100,6 +95,7 @@ const createOrderElement = (orderData, orderItems) => {
 
   $orderContainer.append($orderNumberDiv, $userInfo, $foodAndPriceContainer, $total, $timeEstimate, $completeOrderButton);
 
+  export function sendEstimateSMS() {
   $orderContainer.on('click', '.estimateButton', function() {
     console.log(' estimate button clicked');
     const phoneNumber = '+17807295721';
@@ -107,7 +103,8 @@ const createOrderElement = (orderData, orderItems) => {
     sendEstimateSMS(phoneNumber, estimatedMinutes);
     console.log("estimate SMS sent to:", phoneNumber);
   });
-
+  }
+  export function sendOrderCompletedSMS() {
   $orderContainer.on('click', '.completeOrderButton', function() {
     console.log('Complete Order button clicked');
     const phoneNumber = '+17807295721';
