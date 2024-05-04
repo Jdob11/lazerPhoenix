@@ -17,7 +17,7 @@
   margin: 5px 0;
   padding: 5px;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid $menu-input-border-bottom-color;
   background: none;
   width: calc(50% - 5px);
 }
@@ -26,7 +26,7 @@
   margin: 5px 0;
   padding: 5px;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid $menu-input-border-bottom-color;
   background: none;
   width: 100%;
   resize: none;
