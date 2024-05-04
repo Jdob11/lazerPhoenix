@@ -12,6 +12,9 @@ const { addNewMenuItem, editMenuItem, getAllMenuItems } = require('../db/queries
 const { getUserById } = require('../db/queries/users');
 const { getOrderInfo } = require('../db/queries/orders');
 
+const { sendOrderReceivedSMS } = require('../public/scripts/twilio.js');
+
+
 router.get('/', (req, res) => {
   res.render('users');
 });
@@ -74,6 +77,9 @@ router.post('/order', async (req, res) => {
     // all menu items have been inserted into the db
     // call twilio to text the customer
     // respond to the browser to complete the AJAX request
+    const phoneNumber = '+17807295721'; // using my person number for now
+    sendOrderReceivedSMS(phoneNumber);
+    console.log("Order confirmation to:", phoneNumber); //test
   })
   .catch((error) => {
     console.log('error placing order:', error)

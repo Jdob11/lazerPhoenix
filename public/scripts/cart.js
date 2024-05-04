@@ -1,7 +1,9 @@
+
 document.addEventListener("DOMContentLoaded", function(){
   const shoppingCartButton = document.querySelector('.shopping-cart-button');
   const closeButton = document.querySelector('.close');
   const cartOverlay = document.querySelector('.cartTab');
+
 
   function toggleCartOverlay(){
     // console.log('BUTTON CLICKED');
@@ -54,9 +56,16 @@ $('.cartTab').on('click', ' .submitOrder', function() {
     localStorage.removeItem('cart');
     renderCartItems();
     updateCartCounter(cart);
+
+
     $.post("/users/order", {cart})
       .done(() => { //Why doesn't this promise ever finish?
         console.log("order placed");
+
+        const phoneNumber = '+17807295721';
+        sendOrderReceivedSMS(phoneNumber);
+        // console.log("Order confirmation to:", phoneNumber); //test
+
       })
       .fail(() => {
         console.log("order failed");
@@ -64,3 +73,5 @@ $('.cartTab').on('click', ' .submitOrder', function() {
 
 
 });
+
+
