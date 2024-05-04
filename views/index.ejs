@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/styles/menuItems.css" />
   <link rel="stylesheet" href="/styles/cartButton.css" />
   <link rel="stylesheet" href="/styles/menuItemInput.css" />
+  <link rel="stylesheet" href="/styles/orderCard.css" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Source Sans 3 -->
@@ -29,11 +30,11 @@
   <script defer src="/scripts/users.js"></script>
   <script defer src="/scripts/helpers.js"></script>
   <script defer src="/scripts/cart.js"></script>
-  <script>
+  <!-- <script>
     $(document).ready(function() {
       renderCartItems();
     });
-  </script>
+  </script> -->
   </head>
 
 <body>
@@ -45,7 +46,33 @@
 
   </div>
 
-   <div id="menuContainer" class="menuItems">
+  <div id="menuContainer" class="menuItems">
+    <!-- <div class="menuItem orderCard">
+    <div class="orderNumberDiv">
+      <h4 class="orderNumber">#123</h4>
+    </div>
+      <div class="userInfo">
+        <h3 class="info">User Name</h3>
+        <h3 class="info">Phone Number</h3>
+      </div>
+      <div class="foodAndPrice">
+        <p>Food Item</p>
+        <p>$10.00</p>
+        <p>x 2</p>
+      </div>
+      <div class="total">
+        <h4>$100.00</h4>
+      </div>
+      <div class="timeEstimate">
+        <div class="estimateInput">
+          <label for="estimate">Ready in:</label>
+          <input type="number" id="estimate">
+        </div>
+        <button class="estimateButton">Send Estimate</button>
+      </div>
+        <button class="completeOrderButton">Complete Order</button>
+      </div> -->
+    </div>
   </div>
   <% if (typeof user === 'undefined' || !user.is_owner) { %>
     <button class="shopping-cart-button">
@@ -59,7 +86,7 @@
   <div class = "cartTab">
     <h1>Your Cart</h1>
     <div class ="listCart">
-      <div class="item">
+      <!-- <div class="item">
         <div class="image">
           <img src="https://via.placeholder.com/150" alt="Placeholder Image">
 
@@ -77,8 +104,9 @@
           <span class="plus">></span>
 
         </div>
-      </div>
+      </div> -->
     </div>
+    <div class="totalCost"></div>
     <div class="btn">
       <button class="close">CLOSE</button>
       <button class = "submitOrder" id="submitOrder">ORDER</button>

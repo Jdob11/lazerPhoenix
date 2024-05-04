@@ -2,14 +2,14 @@
   <div class="nav">
     <div class="logo"> Lazer Phoenix</div>
     <ul>
-      <li><a href="#">Menu</a></li>
-      <li><a href="#">Contact Us</a></li>
-      <li><a href="#">Preferences</a></li>
+      <li><a id="menuView" href="#">Menu</a></li>
       <% if (typeof user !== 'undefined' && user.is_owner) { %>
-        <li><a href="#">Owner</a></li>
-      <% } else { %>
-        <li><a href="#">Customer</a></li>
-      <% } %>
+        <li><a id="ordersView" href="#">Orders</a></li>
+        <!-- <li><a href="#">Owner</a></li> -->
+        <% } else { %>
+          <!-- <li><a href="#">Customer</a></li> -->
+          <li><a href="#">Contact Us</a></li>
+          <% } %>
     </ul>
   </div>
 </div>

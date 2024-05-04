@@ -10,6 +10,7 @@ const db = require('../db/connection');
 const router  = express.Router();
 const { addNewMenuItem, editMenuItem, getAllMenuItems } = require('../db/queries/menuItems');
 const { getUserById } = require('../db/queries/users');
+const { getOrderInfo } = require('../db/queries/orders');
 
 const { sendOrderReceivedSMS } = require('./twilio.js');
 
@@ -25,6 +26,15 @@ router.get('/menuItems', async (req, res) => {
     res.json(menuItems);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching menu items' });
+  }
+});
+
+router.get('/orderItems', async (req, res) => {
+  try {
+    const orderItems = await getOrderInfo();
+    res.json(orderItems);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching order items' });
   }
 });
 

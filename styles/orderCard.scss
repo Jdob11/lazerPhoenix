@@ -1,0 +1,53 @@
+@use 'vars' as *;
+
+.orderNumberDiv {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.orderNumber {
+  text-align: right;
+  margin: 0;
+};
+
+.userInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.info {
+  padding: 4px;
+}
+
+.foodAndPrice {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.total {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.estimateInput{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.estimateButton{
+  margin: 10px 0px 10px 10px;
+  background-color: $estimate-button-color;
+}
+
+.completeOrderButton {
+  background-color: $complete-order-button;
+}
+
+.timeEstimate{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

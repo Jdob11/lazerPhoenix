@@ -5,4 +5,6 @@ $(() => {
 
   getUserAndGenerateMenu(userId);
 
+  renderCartItems();
+
 });
