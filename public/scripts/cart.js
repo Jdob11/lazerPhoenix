@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 });
 
-
 $('.listCart').on('click', '.minus', function() {
   const itemName = $(this).closest('.item').find('.name').text();
   const item = { name: itemName };
@@ -41,7 +40,6 @@ $('.listCart').on('click', '.minus', function() {
   renderCartItems();
   updateCartCounter(cart);
 });
-
 
 $('.listCart').on('click', '.plus', function() {
   const itemName = $(this).closest('.item').find('.name').text();
@@ -59,7 +57,7 @@ $('.cartTab').on('click', ' .submitOrder', function() {
 
 
     $.post("/users/order", {cart})
-      .done(() => { //Why doesn't this promise ever finish?
+      .done(() => {
         console.log("order placed");
 
         const phoneNumber = '+17807295721';
@@ -73,4 +71,64 @@ $('.cartTab').on('click', ' .submitOrder', function() {
 
 });
 
+const addToCart = (itemName, menuItemId, menuItemPrice) => {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const existingItemIndex = cart.findIndex(item => item.name === itemName);
 
+  if (existingItemIndex !== -1) {
+      cart[existingItemIndex].quantity++;
+  } else {
+      const newItem = { name: itemName, quantity: 1, menuItemId, menuItemPrice };
+      cart.push(newItem);
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  updateCartCounter(cart);
+  // console.log("Item added to cart:", itemName);
+}
+const addToCartButton = function() {
+  const menuItemName = $(this).attr('product_name');
+  const menuItemId = $(this).attr('product_id');
+  const menuItemPrice = $(this).attr('product_price')
+  // console.log(menuItemName);
+  addToCart(menuItemName, menuItemId, menuItemPrice);
+  renderCartItems();
+}
+
+const removeFromCart = (itemToRemove) => {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const index = cart.findIndex(item => item.name === itemToRemove.name);
+  if (index !== -1) {
+    if (cart[index].quantity > 1) {
+      cart[index].quantity--;
+    } else {
+      cart.splice(index, 1);
+    }
+    updateCartCounter(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    // console.log("Item removed from cart:", itemToRemove);
+  } else {
+    console.log("Item not found in cart:", itemToRemove);
+
+  }
+}
+
+const removeFromCartButton = function() {
+  const menuItemName = $(this).attr('product_name');
+  // console.log(menuItemName);
+  const item = { name: menuItemName };
+  removeFromCart(item);
+  renderCartItems();
+}
+
+const initializeCartCounter = () => {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+  document.getElementById('cartCounter').textContent = totalQuantity;
+};
+
+const updateCartCounter = () => {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
+  $('#cartCounter').text(totalQuantity);
+}

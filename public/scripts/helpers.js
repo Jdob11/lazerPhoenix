@@ -55,7 +55,7 @@ const createAddNewMenuItemForm = () => {
   $('#menuContainer').append($form);
 };
 
-function createOrderElement(orderData, orderItems) {
+const createOrderElement = (orderData, orderItems) => {
   const $orderContainer = $('<div>').addClass('menuItem orderCard');
 
   const $orderNumberDiv = $('<div>').addClass('orderNumberDiv');
@@ -112,8 +112,6 @@ function createOrderElement(orderData, orderItems) {
   return $orderContainer;
 }
 
-
-
 const getMenuItems = (cb) => {
   $.get('/users/menuItems', function(data) {
     data.sort((a, b) => b.id - a.id);
@@ -127,136 +125,7 @@ const getMenuItems = (cb) => {
   });
 };
 
-const getOrders = (cb) => {
-  $.get('/users/orderItems', function(data) {
-    const orders = {};
-
-    data.forEach(orderItem => {
-      if (!orders[orderItem.order_id]) {
-        orders[orderItem.order_id] = [];
-      }
-      orders[orderItem.order_id].push(orderItem);
-    });
-
-
-    Object.keys(orders).forEach(orderId => {
-      const orderData = orders[orderId][0];
-      const $orderItem = cb(orderData, orders[orderId]);
-      $('#menuContainer').append($orderItem);
-    });
-
-    console.log(data);
-  })
-  .fail(function() {
-    console.error('Error fetching order');
-  });
-};
-
-const addToCartButton = function() {
-  const menuItemName = $(this).attr('product_name');
-  const menuItemId = $(this).attr('product_id');
-  const menuItemPrice = $(this).attr('product_price')
-  // console.log(menuItemName);
-  addToCart(menuItemName, menuItemId, menuItemPrice);
-  renderCartItems();
-}
-
-
-const removeFromCartButton = function() {
-  const menuItemName = $(this).attr('product_name');
-  // console.log(menuItemName);
-  const item = { name: menuItemName };
-  removeFromCart(item);
-  renderCartItems();
-}
-
-const editMenuItemButton = function(event) {
-  event.preventDefault();
-
-    const formData = $(this).serialize();
-  $.post('/users/editMenuItem', formData)
-    .done(function(response) {
-      alert('Item Edited Successfully');
-      console.log(response);
-      if (response.message) {
-        alert(response.message);
-      }
-    })
-    .fail(function() {
-      console.error('Error editing menu item');
-    });
-};
-
-const addMenuItemButton = function(event) {
-  event.preventDefault();
-
-  const formData = $(this).serialize();
-  $.post('/users/addNewMenuItem', formData)
-    .done(function(response) {
-      alert('Item Added Successfully');
-      console.log(response);
-      if (response.message) {
-        alert(response.message);
-      }
-      $('#menuContainer').empty();
-      getMenuItems(createEditMenuItemForm); // Generate Owner menu page
-      createAddNewMenuItemForm();
-    })
-    .fail(function() {
-      console.error('Error adding menu item');
-    });
-};
-
-function initializeCartCounter() {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  let totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-  document.getElementById('cartCounter').textContent = totalQuantity;
-}
-
-// Function to add item to cart, template from Larry
-function addToCart(itemName, menuItemId, menuItemPrice) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const existingItemIndex = cart.findIndex(item => item.name === itemName);
-
-  if (existingItemIndex !== -1) {
-      cart[existingItemIndex].quantity++;
-  } else {
-      const newItem = { name: itemName, quantity: 1, menuItemId, menuItemPrice };
-      cart.push(newItem);
-  }
-
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartCounter(cart);
-  // console.log("Item added to cart:", itemName);
-}
-
-function removeFromCart(itemToRemove) {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const index = cart.findIndex(item => item.name === itemToRemove.name);
-  if (index !== -1) {
-    if (cart[index].quantity > 1) {
-      cart[index].quantity--;
-    } else {
-      cart.splice(index, 1);
-    }
-    updateCartCounter(cart);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    // console.log("Item removed from cart:", itemToRemove);
-  } else {
-    console.log("Item not found in cart:", itemToRemove);
-
-  }
-}
-
-
-
-function updateCartCounter() {
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  let totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
-  $('#cartCounter').text(totalQuantity);
-}
-
-const getUserAndGenerateMenu = function(userId) {
+const getUserAndGenerateMenu = (userId) => {
   $.ajax({
   method: 'GET',
   url: `/users/${userId}`
@@ -274,39 +143,3 @@ const getUserAndGenerateMenu = function(userId) {
   console.error('Error fetching user:', error);
 });
 };
-
-
-function renderCartItems() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const totalCost = cart.reduce((total, item) => {
-    const itemCost = parseInt(item.menuItemPrice) / 100 * parseInt(item.quantity);
-    return total + itemCost;
-  }, 0);
-
-  // Update total cost in the cart tab
-  $('.cartTab .totalCost').text('Total Cost: $' + totalCost.toFixed(2));
-
-  const $listCart = $('.listCart');
-  $listCart.empty();
-
-  cart.forEach(item => {
-    const priceInDollars = (item.menuItemPrice / 100).toFixed(2);
-    const $item = $('<div class="item"></div>');
-
-    const $name = $('<div class="name"></div>').text(item.name);
-    $item.append($name);
-
-    const $totalPrice = $('<div class="totalPrice"></div>').text('$' + priceInDollars);
-    $item.append($totalPrice);
-
-    const $quantity = $('<div class="quantity"></div>');
-    $quantity.append('<span class="minus"><</span>');
-    $quantity.append(`<span class="quant">${item.quantity}</span>`);
-    $quantity.append('<span class="plus">></span>');
-    $item.append($quantity);
-
-    $listCart.append($item);
-  });
-}
-
-
