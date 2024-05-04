@@ -6,30 +6,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
   const toggleCartOverlay = () => {
-    // console.log('BUTTON CLICKED');
     cartOverlay.classList.toggle('open');
-
-    // If the cart overlay is open, log the cart data to the console
-    // if (cartOverlay.classList.contains('open')) {
-    // Retrieve cart data from local storage
-    // const cartData = getCartData();
-    // console.log('Cart Data:');
-    // Log each item in the cart data
-    // cartData.forEach(item => {
-    //   console.log(item);
-    // });
-    // }
   };
 
-  // Add event listener to the shopping cart button to trigger toggleCartOverlay
   if (shoppingCartButton !== null) {
     shoppingCartButton.addEventListener('click', toggleCartOverlay);
     closeButton.addEventListener('click', toggleCartOverlay);
   }
-  // Function to retrieve cart data from local storage
-  // function getCartData() {
-  //   return JSON.parse(localStorage.getItem('cart')) || [];
-  // }
 });
 
 $('.listCart').on('click', '.minus', function() {
@@ -48,9 +31,7 @@ $('.listCart').on('click', '.plus', function() {
 });
 
 $('.cartTab').on('click', ' .submitOrder', function() {
-  // console.log("order button clicked");
   const cart = JSON.parse(localStorage.getItem('cart'));
-  // console.log(cart,"cart grab");
   localStorage.removeItem('cart');
   renderCartItems();
   updateCartCounter(cart);
@@ -62,7 +43,6 @@ $('.cartTab').on('click', ' .submitOrder', function() {
 
       const phoneNumber = '+17807295721';
       sendOrderReceivedSMS(phoneNumber);
-      // console.log("Order confirmation to:", phoneNumber); //test
 
     })
     .fail(() => {
@@ -84,14 +64,12 @@ const addToCart = (itemName, menuItemId, menuItemPrice) => {
 
   localStorage.setItem('cart', JSON.stringify(cart));
   updateCartCounter(cart);
-  // console.log("Item added to cart:", itemName);
 };
 
 const addToCartButton = function() {
   const menuItemName = $(this).attr('product_name');
   const menuItemId = $(this).attr('product_id');
   const menuItemPrice = $(this).attr('product_price');
-  // console.log(menuItemName);
   addToCart(menuItemName, menuItemId, menuItemPrice);
   renderCartItems();
 };
@@ -107,7 +85,6 @@ const removeFromCart = (itemToRemove) => {
     }
     updateCartCounter(cart);
     localStorage.setItem('cart', JSON.stringify(cart));
-    // console.log("Item removed from cart:", itemToRemove);
   } else {
     console.log("Item not found in cart:", itemToRemove);
 
@@ -116,7 +93,6 @@ const removeFromCart = (itemToRemove) => {
 
 const removeFromCartButton = function() {
   const menuItemName = $(this).attr('product_name');
-  // console.log(menuItemName);
   const item = { name: menuItemName };
   removeFromCart(item);
   renderCartItems();
@@ -141,7 +117,6 @@ const renderCartItems = () => {
     return total + itemCost;
   }, 0);
 
-  // Update total cost in the cart tab
   $('.cartTab .totalCost').text('Total Cost: $' + totalCost.toFixed(2));
 
   const $listCart = $('.listCart');

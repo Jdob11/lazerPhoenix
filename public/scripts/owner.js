@@ -52,7 +52,7 @@ const addMenuItemButton = function(event) {
         alert(response.message);
       }
       $('#menuContainer').empty();
-      getMenuItems(createEditMenuItemForm); // Generate Owner menu page
+      getMenuItems(createEditMenuItemForm);
       createAddNewMenuItemForm();
     })
     .fail(function() {
