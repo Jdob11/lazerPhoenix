@@ -1,3 +1,8 @@
+import('./twilio.js').then(({ sendEstimateSMS, sendOrderCompletedSMS }) => {
+}).catch(error => {
+  console.error('Error importing twilio.js:', error);
+});
+
 const createEditMenuItemForm = (menuItemData) => {
   const $form = $('<form>').addClass('menuItem', 'menuItemForm');
   const $itemIdInput = $('<input>').attr('type', 'hidden').attr('name', 'itemId').val(menuItemData.id);

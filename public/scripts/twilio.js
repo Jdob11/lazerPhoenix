@@ -20,10 +20,10 @@ const sendOrderReceivedSMS = (phoneNumber) => {
         .catch(error => console.error('Error sending order received SMS:', error));
 };
 
-const sendEstimateSMS = (phoneNumber) => {
+const sendEstimateSMS = (phoneNumber, estimatedMinutes) => {
   client.messages
       .create({
-          body: "Your order will be ready in ~x minutes.",
+          body: "Your order will be ready in ${estimatedMinutes} minutes.",
           from: '+14256107880',
           to: phoneNumber // use client's ph # here from DB
       })
