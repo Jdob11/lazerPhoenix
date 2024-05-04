@@ -62,8 +62,8 @@ $('.cartTab').on('click', ' .submitOrder', function() {
       .done(() => { //Why doesn't this promise ever finish?
         console.log("order placed");
 
-        // const phoneNumber = '+17807295721';
-        // sendOrderReceivedSMS(phoneNumber);
+        const phoneNumber = '+17807295721';
+        sendOrderReceivedSMS(phoneNumber);
         // console.log("Order confirmation to:", phoneNumber); //test
 
       })

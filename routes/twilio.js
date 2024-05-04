@@ -12,12 +12,23 @@ const client = require('twilio')(accountSid, authToken);
 const sendOrderReceivedSMS = (phoneNumber) => {
     client.messages
         .create({
-            body: "Thank you for ordering at LazerPhoenix! Your order has been received and is being processed. We will send you another text when it's ready for pickup!",
+            body: "Thank you for ordering at LazerPhoenix! Your order has been received and is being processed.",
             from: '+14256107880',
             to: phoneNumber // use client's ph # here from DB
         })
         .then(message => console.log('Order received SMS sent:', message.sid))
         .catch(error => console.error('Error sending order received SMS:', error));
+};
+
+const sendEstimateSMS = (phoneNumber) => {
+  client.messages
+      .create({
+          body: "Your order will be ready in ~x minutes.",
+          from: '+14256107880',
+          to: phoneNumber // use client's ph # here from DB
+      })
+      .then(message => console.log('Order estimate SMS sent:', message.sid))
+      .catch(error => console.error('Error sending order estimated SMS:', error));
 };
 
 const sendOrderCompletedSMS = (phoneNumber) => {
