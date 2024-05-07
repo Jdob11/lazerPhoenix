@@ -26,7 +26,7 @@ To run the Lazer Phoenix project locally, follow these steps:
 
 1. Clone the repository:
 ```bash
-   git clone <repository-url>
+   git clone [repository](https://github.com/Jdob11/lazerPhoenix)
    ```
 
 2. Navigate to the project directory:
